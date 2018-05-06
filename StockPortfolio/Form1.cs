@@ -16,5 +16,11 @@ namespace StockPortfolio
         {
             InitializeComponent();
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            Welcome_Form welcome_Form = new Welcome_Form();
+            welcome_Form.ShowDialog();
+        }
     }
 }

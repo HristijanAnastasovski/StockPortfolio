@@ -1,0 +1,10 @@
+F:\Projects\Git_Repos\StockPortfolio\StockPortfolio\bin\Debug\StockPortfolio.exe.config
+F:\Projects\Git_Repos\StockPortfolio\StockPortfolio\bin\Debug\StockPortfolio.exe
+F:\Projects\Git_Repos\StockPortfolio\StockPortfolio\bin\Debug\StockPortfolio.pdb
+F:\Projects\Git_Repos\StockPortfolio\StockPortfolio\obj\Debug\StockPortfolio.Form1.resources
+F:\Projects\Git_Repos\StockPortfolio\StockPortfolio\obj\Debug\StockPortfolio.Properties.Resources.resources
+F:\Projects\Git_Repos\StockPortfolio\StockPortfolio\obj\Debug\StockPortfolio.csproj.GenerateResource.Cache
+F:\Projects\Git_Repos\StockPortfolio\StockPortfolio\obj\Debug\StockPortfolio.csproj.CoreCompileInputs.cache
+F:\Projects\Git_Repos\StockPortfolio\StockPortfolio\obj\Debug\StockPortfolio.exe
+F:\Projects\Git_Repos\StockPortfolio\StockPortfolio\obj\Debug\StockPortfolio.pdb
+F:\Projects\Git_Repos\StockPortfolio\StockPortfolio\obj\Debug\StockPortfolio.Welcome_Form.resources
