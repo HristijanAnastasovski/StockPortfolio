@@ -1,7 +1,9 @@
-﻿using System;
+﻿using StockPortfolio.IEX_API;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -16,6 +18,8 @@ namespace StockPortfolio
         public Welcome_Form()
         {
             InitializeComponent();
+            API.GetHistoricalData("aapl"); // samo za test
+            API.GetQuote("msft"); // samo za test
         }
 
         private void Welcome_Form_Load(object sender, EventArgs e)
