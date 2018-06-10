@@ -10,17 +10,16 @@ using System.Windows.Forms;
 
 namespace StockPortfolio
 {
-    public partial class Form1 : Form
+    public partial class Help_Form : Form
     {
-        public Form1()
+        public Help_Form()
         {
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void BTN_Close_Help_Click(object sender, EventArgs e)
         {
-            Welcome_Form welcome_Form = new Welcome_Form();
-            welcome_Form.ShowDialog();
+            this.Close();
         }
     }
 }

@@ -24,7 +24,7 @@ namespace StockPortfolio.IEX_API.POCOS
         public string latestTime { get; set; }
         public long latestUpdate { get; set; }
         public int latestVolume { get; set; }
-        public double iexRealtimePrice { get; set; }
+        public double? iexRealtimePrice { get; set; }
         public int iexRealtimeSize { get; set; }
         public long iexLastUpdated { get; set; }
         public double delayedPrice { get; set; }

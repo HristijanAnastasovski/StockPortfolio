@@ -40,6 +40,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.6\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
@@ -54,25 +55,49 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="About_Form.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="About_Form.Designer.cs">
+      <DependentUpon>About_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Help_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Help_Form.Designer.cs">
+      <DependentUpon>Help_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Main_Menu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main_Menu.Designer.cs">
+      <DependentUpon>Main_Menu.cs</DependentUpon>
     </Compile>
     <Compile Include="IEX_API\API.cs" />
     <Compile Include="IEX_API\POCOS\HistoricalDataPOCO.cs" />
     <Compile Include="IEX_API\POCOS\QuotePOCO.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Search_Result_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Search_Result_Form.Designer.cs">
+      <DependentUpon>Search_Result_Form.cs</DependentUpon>
+    </Compile>
     <Compile Include="Welcome_Form.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Welcome_Form.Designer.cs">
       <DependentUpon>Welcome_Form.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="About_Form.resx">
+      <DependentUpon>About_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Help_Form.resx">
+      <DependentUpon>Help_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main_Menu.resx">
+      <DependentUpon>Main_Menu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -83,6 +108,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Search_Result_Form.resx">
+      <DependentUpon>Search_Result_Form.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Welcome_Form.resx">
       <DependentUpon>Welcome_Form.cs</DependentUpon>
     </EmbeddedResource>

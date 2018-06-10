@@ -18,8 +18,11 @@ namespace StockPortfolio
         public Welcome_Form()
         {
             InitializeComponent();
-            API.GetHistoricalData("aapl"); // samo za test
-            API.GetQuote("msft"); // samo za test
+
+            // ne znam ama kaj mene ova ne raboti
+            // zatoa go iskomentirav
+            // API.GetHistoricalData("aapl"); // samo za test
+            // API.GetQuote("msft"); // samo za test
         }
 
         private void Welcome_Form_Load(object sender, EventArgs e)
