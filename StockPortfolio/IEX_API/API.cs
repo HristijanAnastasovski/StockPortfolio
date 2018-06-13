@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 namespace StockPortfolio.IEX_API
 {
     // TODO: Refactor
+    // TODO: error handling (try/catch)
     class API
     {
         // @symbol za koj ke se vratat podatoci
@@ -18,7 +19,7 @@ namespace StockPortfolio.IEX_API
         // mislam deka mapa bi odgovaralo najvekje
         // datum -> objekt so data so properties 'open, close, low, high, change, changePercentage'
         // ili neshto slicno
-        public static Dictionary<DateTimeOffset, HistoricalDataDto> GetHistoricalData(string symbol)
+        public static IReadOnlyDictionary<DateTimeOffset, HistoricalDataDto> GetHistoricalData(string symbol)
         {
             var API_PATH = $"https://api.iextrading.com/1.0/stock/{symbol}/chart/1m";
             API api = new API();
@@ -73,7 +74,7 @@ namespace StockPortfolio.IEX_API
         }
 
         // @newsCount -> posledni N vesti za vrakjanje
-        public static List<NewsDto> GetNews(int newsCount)
+        public static IEnumerable<NewsDto> GetNews(int newsCount)
         {
             var API_PATH = $"https://api.iextrading.com/1.0/stock/market/news/last/{newsCount}";
             API api = new API();
@@ -96,7 +97,7 @@ namespace StockPortfolio.IEX_API
                 return news;
             }
 
-            return null;
+            return Enumerable.Empty<NewsDto>();
         }
 
         // informacii za kompanijata so simbol @symbol

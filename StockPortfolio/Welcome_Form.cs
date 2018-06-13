@@ -27,7 +27,7 @@ namespace StockPortfolio
             API.GetHistoricalData("aapl"); // samo za test
             QuoteDto msft = API.GetQuote("msft"); // samo za test
             Debug.WriteLine(msft.Symbol); // samo za test
-            List<NewsDto> news = API.GetNews(1); // samo za test
+            List<NewsDto> news = API.GetNews(1).ToList<NewsDto>(); // samo za test
 
             CompanyInfoDto appleInfo = API.GetCompanyInfo("aapl"); // samo za test
             Debug.WriteLine("CEO: " + appleInfo.Ceo); // samo za test
