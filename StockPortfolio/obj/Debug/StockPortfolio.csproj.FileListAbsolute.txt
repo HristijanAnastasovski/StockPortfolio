@@ -42,3 +42,22 @@ F:\Projects\C#\VP\Proekt\StockPortfolio\obj\Debug\StockPortfolio.About_Form.reso
 F:\Projects\C#\VP\Proekt\StockPortfolio\obj\Debug\StockPortfolio.Help_Form.resources
 F:\Projects\C#\VP\Proekt\StockPortfolio\obj\Debug\StockPortfolio.csprojResolveAssemblyReference.cache
 F:\Projects\C#\VP\Proekt\StockPortfolio\obj\Debug\StockPortfolio.Search_Result_Form.resources
+C:\Users\Bojan Barisic\Source\Repos\StockPortfolio\StockPortfolio\obj\Debug\StockPortfolio.csprojAssemblyReference.cache
+C:\Users\Bojan Barisic\Source\Repos\StockPortfolio\StockPortfolio\obj\Debug\StockPortfolio.About_Form.resources
+C:\Users\Bojan Barisic\Source\Repos\StockPortfolio\StockPortfolio\obj\Debug\StockPortfolio.Help_Form.resources
+C:\Users\Bojan Barisic\Source\Repos\StockPortfolio\StockPortfolio\obj\Debug\StockPortfolio.Main_Menu.resources
+C:\Users\Bojan Barisic\Source\Repos\StockPortfolio\StockPortfolio\obj\Debug\StockPortfolio.Properties.Resources.resources
+C:\Users\Bojan Barisic\Source\Repos\StockPortfolio\StockPortfolio\obj\Debug\StockPortfolio.Search_Result_Form.resources
+C:\Users\Bojan Barisic\Source\Repos\StockPortfolio\StockPortfolio\obj\Debug\StockPortfolio.Welcome_Form.resources
+C:\Users\Bojan Barisic\Source\Repos\StockPortfolio\StockPortfolio\obj\Debug\StockPortfolio.csproj.GenerateResource.cache
+C:\Users\Bojan Barisic\Source\Repos\StockPortfolio\StockPortfolio\obj\Debug\StockPortfolio.csproj.CoreCompileInputs.cache
+C:\Users\Bojan Barisic\Source\Repos\StockPortfolio\StockPortfolio\obj\Debug\StockPortfolio.exe
+C:\Users\Bojan Barisic\Source\Repos\StockPortfolio\StockPortfolio\obj\Debug\StockPortfolio.pdb
+C:\Users\Bojan Barisic\Source\Repos\StockPortfolio\StockPortfolio\bin\Debug\StockPortfolio.exe.config
+C:\Users\Bojan Barisic\Source\Repos\StockPortfolio\StockPortfolio\bin\Debug\StockPortfolio.exe
+C:\Users\Bojan Barisic\Source\Repos\StockPortfolio\StockPortfolio\bin\Debug\StockPortfolio.pdb
+C:\Users\Bojan Barisic\Source\Repos\StockPortfolio\StockPortfolio\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Bojan Barisic\Source\Repos\StockPortfolio\StockPortfolio\bin\Debug\System.Net.Http.Formatting.dll
+C:\Users\Bojan Barisic\Source\Repos\StockPortfolio\StockPortfolio\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Bojan Barisic\Source\Repos\StockPortfolio\StockPortfolio\bin\Debug\System.Net.Http.Formatting.xml
+C:\Users\Bojan Barisic\Source\Repos\StockPortfolio\StockPortfolio\obj\Debug\StockPortfolio.csproj.CopyComplete

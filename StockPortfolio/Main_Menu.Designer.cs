@@ -39,16 +39,16 @@
             this.TB_Search_Stocks = new System.Windows.Forms.TextBox();
             this.ErrorProvider_Search_Error = new System.Windows.Forms.ErrorProvider(this.components);
             this.GroupBox_Top_All_Time = new System.Windows.Forms.GroupBox();
-            this.GroupBox_Top_Today = new System.Windows.Forms.GroupBox();
             this.PB_Top_All_Time = new System.Windows.Forms.PictureBox();
+            this.GroupBox_Top_Today = new System.Windows.Forms.GroupBox();
             this.PB_Top_Today = new System.Windows.Forms.PictureBox();
             this.BTN_Refresh = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.PB_Main_Logo)).BeginInit();
             this.GroupBox_Search.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ErrorProvider_Search_Error)).BeginInit();
             this.GroupBox_Top_All_Time.SuspendLayout();
-            this.GroupBox_Top_Today.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PB_Top_All_Time)).BeginInit();
+            this.GroupBox_Top_Today.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PB_Top_Today)).BeginInit();
             this.SuspendLayout();
             // 
@@ -120,10 +120,10 @@
             // 
             // TB_Search_Stocks
             // 
-            this.TB_Search_Stocks.Location = new System.Drawing.Point(16, 28);
+            this.TB_Search_Stocks.Location = new System.Drawing.Point(6, 28);
             this.TB_Search_Stocks.MaxLength = 1000;
             this.TB_Search_Stocks.Name = "TB_Search_Stocks";
-            this.TB_Search_Stocks.Size = new System.Drawing.Size(162, 20);
+            this.TB_Search_Stocks.Size = new System.Drawing.Size(199, 20);
             this.TB_Search_Stocks.TabIndex = 0;
             // 
             // ErrorProvider_Search_Error
@@ -141,6 +141,14 @@
             this.GroupBox_Top_All_Time.TabStop = false;
             this.GroupBox_Top_All_Time.Text = "Top All-Time";
             // 
+            // PB_Top_All_Time
+            // 
+            this.PB_Top_All_Time.Location = new System.Drawing.Point(6, 22);
+            this.PB_Top_All_Time.Name = "PB_Top_All_Time";
+            this.PB_Top_All_Time.Size = new System.Drawing.Size(284, 460);
+            this.PB_Top_All_Time.TabIndex = 0;
+            this.PB_Top_All_Time.TabStop = false;
+            // 
             // GroupBox_Top_Today
             // 
             this.GroupBox_Top_Today.Controls.Add(this.PB_Top_Today);
@@ -151,14 +159,6 @@
             this.GroupBox_Top_Today.TabIndex = 7;
             this.GroupBox_Top_Today.TabStop = false;
             this.GroupBox_Top_Today.Text = "Top Today";
-            // 
-            // PB_Top_All_Time
-            // 
-            this.PB_Top_All_Time.Location = new System.Drawing.Point(6, 22);
-            this.PB_Top_All_Time.Name = "PB_Top_All_Time";
-            this.PB_Top_All_Time.Size = new System.Drawing.Size(284, 460);
-            this.PB_Top_All_Time.TabIndex = 0;
-            this.PB_Top_All_Time.TabStop = false;
             // 
             // PB_Top_Today
             // 
@@ -205,8 +205,8 @@
             this.GroupBox_Search.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ErrorProvider_Search_Error)).EndInit();
             this.GroupBox_Top_All_Time.ResumeLayout(false);
-            this.GroupBox_Top_Today.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.PB_Top_All_Time)).EndInit();
+            this.GroupBox_Top_Today.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.PB_Top_Today)).EndInit();
             this.ResumeLayout(false);
 

@@ -1,4 +1,5 @@
 ﻿using StockPortfolio.IEX_API;
+using StockPortfolio.IEX_API.DTOs;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,10 +20,10 @@ namespace StockPortfolio
         {
             InitializeComponent();
 
-            // ne znam ama kaj mene ova ne raboti
-            // zatoa go iskomentirav
-            // API.GetHistoricalData("aapl"); // samo za test
-            // API.GetQuote("msft"); // samo za test
+            API.GetHistoricalData("aapl"); // samo za test
+            QuoteDto msft = API.GetQuote("msft"); // samo za test
+            Debug.WriteLine(msft.Symbol); // samo za test
+            List<NewsDto> news = API.GetNews(1);
         }
 
         private void Welcome_Form_Load(object sender, EventArgs e)

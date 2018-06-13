@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using StockPortfolio.IEX_API;
 
 namespace StockPortfolio
 {
@@ -17,6 +18,17 @@ namespace StockPortfolio
         public Main_Menu()
         {
             InitializeComponent();
+            InitializeStockSearchBox();
+        }
+
+        private void InitializeStockSearchBox()
+        {
+            //TB_Search_Stocks.CharacterCasing = CharacterCasing.Upper;
+            AutoCompleteStringCollection searchableSymbols = new AutoCompleteStringCollection();
+            searchableSymbols.AddRange(API.GetSymbols());
+            TB_Search_Stocks.AutoCompleteCustomSource = searchableSymbols;
+            TB_Search_Stocks.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            TB_Search_Stocks.AutoCompleteSource = AutoCompleteSource.CustomSource;
         }
 
         private void Form1_Load(object sender, EventArgs e)

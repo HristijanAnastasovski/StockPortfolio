@@ -67,6 +67,8 @@
     <Compile Include="Help_Form.Designer.cs">
       <DependentUpon>Help_Form.cs</DependentUpon>
     </Compile>
+    <Compile Include="IEX_API\DTOs\NewsDto.cs" />
+    <Compile Include="IEX_API\DTOs\SymbolDto.cs" />
     <Compile Include="Main_Menu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -74,8 +76,8 @@
       <DependentUpon>Main_Menu.cs</DependentUpon>
     </Compile>
     <Compile Include="IEX_API\API.cs" />
-    <Compile Include="IEX_API\POCOS\HistoricalDataPOCO.cs" />
-    <Compile Include="IEX_API\POCOS\QuotePOCO.cs" />
+    <Compile Include="IEX_API\DTOs\HistoricalDataDto.cs" />
+    <Compile Include="IEX_API\DTOs\QuoteDto.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Search_Result_Form.cs">
