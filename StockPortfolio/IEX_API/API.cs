@@ -13,6 +13,7 @@ namespace StockPortfolio.IEX_API
     // TODO: Refactor
     class API
     {
+        // @symbol za koj ke se vratat podatoci
         // lista za sekoj den
         // mislam deka mapa bi odgovaralo najvekje
         // datum -> objekt so data so properties 'open, close, low, high, change, changePercentage'
@@ -39,6 +40,7 @@ namespace StockPortfolio.IEX_API
                         Debug.WriteLine("Change: " + d.Change);
                         Debug.WriteLine("Change Percentage: " + d.ChangePercent);
 
+                        // stavame se vo recnik kade shto KEY e datumot a VALUE e objekt od HistoricalDataDto so site informacii za toj datum
                         HistoricalDataDto data = new HistoricalDataDto(d.Open, d.High, d.Low, d.Close, d.Volume, d.UnadjustedVolume,
                             d.Change, d.ChangePercent, d.Vwap, d.Label, d.ChangeOverTime);
                         historicalData[d.Date] = data;
