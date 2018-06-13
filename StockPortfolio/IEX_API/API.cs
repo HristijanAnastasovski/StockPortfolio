@@ -100,6 +100,7 @@ namespace StockPortfolio.IEX_API
         }
 
         // informacii za kompanijata so simbol @symbol
+        // informacii od tip 'cena na akcii, kolku se trejda, skoro realtime'
         public static QuoteDto GetQuote(string symbol)
         {
 
@@ -109,9 +110,9 @@ namespace StockPortfolio.IEX_API
 
             if (response.IsSuccessStatusCode)
             {
-                //var json = response.Content.ReadAsStringAsync();
-                string test = @"{'symbol':'MSFT','companyName':'Microsoft Corporation','primaryExchange':'Nasdaq Global Select','sector':'Technology','calculationPrice':'close','open': null,'openTime':1528810200772,'close':101.31,'closeTime':1528833600808,'high':101.449,'low':100.75,'latestPrice':101.31,'latestSource':'Close','latestTime':'June 12, 2018','latestUpdate':1528833600808,'latestVolume':18075465,'iexRealtimePrice':101.32,'iexRealtimeSize':200,'iexLastUpdated':1528833595083,'delayedPrice':101.31,'delayedPriceTime':1528833600808,'extendedPrice':101.31,'extendedChange':0,'extendedChangePercent':0,'extendedPriceTime':1528837185650,'previousClose':101.05,'change':0.26,'changePercent':0.00257,'iexMarketPercent':0.03012,'iexVolume':544433,'avgTotalVolume':24155353,'iexBidPrice':0,'iexBidSize':0,'iexAskPrice':0,'iexAskSize':0,'marketCap':778384739029,'peRatio':29.97,'week52High':102.69,'week52Low':68.02, 'ytdChange':0.1888952679651087}";
-                var quote = JsonConvert.DeserializeObject<QuoteDto>(test, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+                var json = response.Content.ReadAsStringAsync();
+                //string test = @"{'symbol':'MSFT','companyName':'Microsoft Corporation','primaryExchange':'Nasdaq Global Select','sector':'Technology','calculationPrice':'close','open': null,'openTime':1528810200772,'close':101.31,'closeTime':1528833600808,'high':101.449,'low':100.75,'latestPrice':101.31,'latestSource':'Close','latestTime':'June 12, 2018','latestUpdate':1528833600808,'latestVolume':18075465,'iexRealtimePrice':101.32,'iexRealtimeSize':200,'iexLastUpdated':1528833595083,'delayedPrice':101.31,'delayedPriceTime':1528833600808,'extendedPrice':101.31,'extendedChange':0,'extendedChangePercent':0,'extendedPriceTime':1528837185650,'previousClose':101.05,'change':0.26,'changePercent':0.00257,'iexMarketPercent':0.03012,'iexVolume':544433,'avgTotalVolume':24155353,'iexBidPrice':0,'iexBidSize':0,'iexAskPrice':0,'iexAskSize':0,'marketCap':778384739029,'peRatio':29.97,'week52High':102.69,'week52Low':68.02, 'ytdChange':0.1888952679651087}";
+                var quote = JsonConvert.DeserializeObject<QuoteDto>(json.Result, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
                 if (quote != null)
                 {
                     Debug.WriteLine("Symbol: " + quote.Symbol);
@@ -121,6 +122,23 @@ namespace StockPortfolio.IEX_API
                     Debug.WriteLine("Open: " + quote.Open);
                     return quote;
                 }
+            }
+
+            return null;
+        }
+
+        // @symbol -> za koja kompanija se baraat informacii
+        // informacii od tipot, koj e CEO, od koja industrija e kompanijata, kratok opis na kompanijata
+        public static CompanyInfoDto GetCompanyInfo(string symbol)
+        {
+            var API_PATH = $"https://api.iextrading.com/1.0/stock/{symbol}/company";
+            API api = new API();
+            var response = api.CallAPI(API_PATH);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var info = response.Content.ReadAsAsync<CompanyInfoDto>().GetAwaiter().GetResult();
+                return info;
             }
 
             return null;
