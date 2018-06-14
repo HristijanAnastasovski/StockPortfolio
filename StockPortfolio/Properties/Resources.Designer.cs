@@ -61,12 +61,49 @@ namespace StockPortfolio.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream applause {
+            get {
+                return ResourceManager.GetStream("applause", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream cash_register_sound {
+            get {
+                return ResourceManager.GetStream("cash_register_sound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap icon {
+        internal static System.Drawing.Bitmap Loading_icon {
             get {
-                object obj = ResourceManager.GetObject("icon", resourceCulture);
+                object obj = ResourceManager.GetObject("Loading_icon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Loading_icon21 {
+            get {
+                object obj = ResourceManager.GetObject("Loading_icon21", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream sadTrombone {
+            get {
+                return ResourceManager.GetStream("sadTrombone", resourceCulture);
             }
         }
     }

@@ -61,3 +61,23 @@ C:\Users\Bojan Barisic\Source\Repos\StockPortfolio\StockPortfolio\bin\Debug\Syst
 C:\Users\Bojan Barisic\Source\Repos\StockPortfolio\StockPortfolio\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Bojan Barisic\Source\Repos\StockPortfolio\StockPortfolio\bin\Debug\System.Net.Http.Formatting.xml
 C:\Users\Bojan Barisic\Source\Repos\StockPortfolio\StockPortfolio\obj\Debug\StockPortfolio.csproj.CopyComplete
+C:\Users\User\source\repos\StockPortfolio\StockPortfolio\bin\Debug\StockPortfolio.exe.config
+C:\Users\User\source\repos\StockPortfolio\StockPortfolio\bin\Debug\StockPortfolio.exe
+C:\Users\User\source\repos\StockPortfolio\StockPortfolio\bin\Debug\StockPortfolio.pdb
+C:\Users\User\source\repos\StockPortfolio\StockPortfolio\bin\Debug\Newtonsoft.Json.dll
+C:\Users\User\source\repos\StockPortfolio\StockPortfolio\bin\Debug\System.Net.Http.Formatting.dll
+C:\Users\User\source\repos\StockPortfolio\StockPortfolio\bin\Debug\Newtonsoft.Json.xml
+C:\Users\User\source\repos\StockPortfolio\StockPortfolio\bin\Debug\System.Net.Http.Formatting.xml
+C:\Users\User\source\repos\StockPortfolio\StockPortfolio\obj\Debug\StockPortfolio.csprojResolveAssemblyReference.cache
+C:\Users\User\source\repos\StockPortfolio\StockPortfolio\obj\Debug\StockPortfolio.About_Form.resources
+C:\Users\User\source\repos\StockPortfolio\StockPortfolio\obj\Debug\StockPortfolio.Help_Form.resources
+C:\Users\User\source\repos\StockPortfolio\StockPortfolio\obj\Debug\StockPortfolio.Main_Menu.resources
+C:\Users\User\source\repos\StockPortfolio\StockPortfolio\obj\Debug\StockPortfolio.Properties.Resources.resources
+C:\Users\User\source\repos\StockPortfolio\StockPortfolio\obj\Debug\StockPortfolio.Search_Result_Form.resources
+C:\Users\User\source\repos\StockPortfolio\StockPortfolio\obj\Debug\StockPortfolio.Welcome_Form.resources
+C:\Users\User\source\repos\StockPortfolio\StockPortfolio\obj\Debug\StockPortfolio.csproj.GenerateResource.cache
+C:\Users\User\source\repos\StockPortfolio\StockPortfolio\obj\Debug\StockPortfolio.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\StockPortfolio\StockPortfolio\obj\Debug\StockPortfolio.csproj.CopyComplete
+C:\Users\User\source\repos\StockPortfolio\StockPortfolio\obj\Debug\StockPortfolio.exe
+C:\Users\User\source\repos\StockPortfolio\StockPortfolio\obj\Debug\StockPortfolio.pdb
+C:\Users\User\source\repos\StockPortfolio\StockPortfolio\obj\Debug\StockPortfolio.StockCalculator.resources

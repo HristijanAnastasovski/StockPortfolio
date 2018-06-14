@@ -44,6 +44,7 @@
     <Reference Include="System.Net.Http.Formatting, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.6\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -79,6 +80,7 @@
     <Compile Include="IEX_API\API.cs" />
     <Compile Include="IEX_API\DTOs\HistoricalDataDto.cs" />
     <Compile Include="IEX_API\DTOs\QuoteDto.cs" />
+    <Compile Include="MostPopularStockElement.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Search_Result_Form.cs">
@@ -86,6 +88,12 @@
     </Compile>
     <Compile Include="Search_Result_Form.Designer.cs">
       <DependentUpon>Search_Result_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StockCalculator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StockCalculator.Designer.cs">
+      <DependentUpon>StockCalculator.cs</DependentUpon>
     </Compile>
     <Compile Include="Welcome_Form.cs">
       <SubType>Form</SubType>
@@ -110,9 +118,13 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="Search_Result_Form.resx">
       <DependentUpon>Search_Result_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StockCalculator.resx">
+      <DependentUpon>StockCalculator.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Welcome_Form.resx">
       <DependentUpon>Welcome_Form.cs</DependentUpon>
@@ -132,7 +144,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="sadTrombone.wav" />
+    <None Include="Loading_icon2.gif" />
+    <None Include="cash_register_sound.wav" />
+    <None Include="applause.wav" />
     <Content Include="images\icon.ico" />
+    <None Include="Resources\Loading_icon2.gif" />
+    <None Include="Resources\Loading_icon.gif" />
+    <None Include="Resources\Loading.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

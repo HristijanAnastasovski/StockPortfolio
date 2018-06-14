@@ -23,6 +23,7 @@ namespace StockPortfolio.IEX_API.DTOs
             Vwap = vwap;
             Label = label;
             ChangeOverTime = changeOverTime;
+            
         }
 
         [JsonProperty("date")]

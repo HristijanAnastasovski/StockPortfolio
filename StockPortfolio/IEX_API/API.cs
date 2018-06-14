@@ -45,10 +45,11 @@ namespace StockPortfolio.IEX_API
                         HistoricalDataDto data = new HistoricalDataDto(d.Open, d.High, d.Low, d.Close, d.Volume, d.UnadjustedVolume,
                             d.Change, d.ChangePercent, d.Vwap, d.Label, d.ChangeOverTime);
                         historicalData[d.Date] = data;
-
-                        return historicalData;
+                       
+                       
                     }
                 }
+                return historicalData;
             }
 
             return null;
@@ -69,6 +70,8 @@ namespace StockPortfolio.IEX_API
                     if (s != null && s.IsEnabled == true)
                         symbols.Add($"{s.Name} ({s.Symbol})");
             }
+
+            
 
             return symbols.ToArray();
         }
@@ -120,6 +123,29 @@ namespace StockPortfolio.IEX_API
                     Debug.WriteLine("Company Name: " + quote.CompanyName);
                     Debug.WriteLine("Primary Exchange: " + quote.PrimaryExchange);
                     Debug.WriteLine("Sector: " + quote.Sector);
+                    Debug.WriteLine("Open: " + quote.Open);
+                    return quote;
+                }
+            }
+
+            return null;
+        }
+
+        public static QuoteDto FilteredGetQuote(string symbol)
+        {
+
+            var API_PATH = $"https://api.iextrading.com/1.0/stock/{symbol}/quote?filter=companyName,open,latestPrice";
+            API api = new API();
+            var response = api.CallAPI(API_PATH);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var json = response.Content.ReadAsStringAsync();
+                //string test = @"{'symbol':'MSFT','companyName':'Microsoft Corporation','primaryExchange':'Nasdaq Global Select','sector':'Technology','calculationPrice':'close','open': null,'openTime':1528810200772,'close':101.31,'closeTime':1528833600808,'high':101.449,'low':100.75,'latestPrice':101.31,'latestSource':'Close','latestTime':'June 12, 2018','latestUpdate':1528833600808,'latestVolume':18075465,'iexRealtimePrice':101.32,'iexRealtimeSize':200,'iexLastUpdated':1528833595083,'delayedPrice':101.31,'delayedPriceTime':1528833600808,'extendedPrice':101.31,'extendedChange':0,'extendedChangePercent':0,'extendedPriceTime':1528837185650,'previousClose':101.05,'change':0.26,'changePercent':0.00257,'iexMarketPercent':0.03012,'iexVolume':544433,'avgTotalVolume':24155353,'iexBidPrice':0,'iexBidSize':0,'iexAskPrice':0,'iexAskSize':0,'marketCap':778384739029,'peRatio':29.97,'week52High':102.69,'week52Low':68.02, 'ytdChange':0.1888952679651087}";
+                var quote = JsonConvert.DeserializeObject<QuoteDto>(json.Result, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+                if (quote != null)
+                {                  
+                    Debug.WriteLine("Company Name: " + quote.CompanyName);                   
                     Debug.WriteLine("Open: " + quote.Open);
                     return quote;
                 }
