@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using StockPortfolio.IEX_API;
+using StockPortfolio.IEX_API.DTOs;
 
 namespace StockPortfolio
 {
@@ -16,29 +17,30 @@ namespace StockPortfolio
     {
         public string search;
 
-        public static string[] mostPopularCompanies = {"AAPL","MSFT","NIKE","TWTR","AMZN","FB", "TMUS", "NFLX", "RHT", "ORCL", "F", "MRVL", "SNE", "EA" };
+        public static string[] mostPopularCompanies = {"AAPL","MSFT","NIKE","TWTR","AMZN","FB", "TMUS", "NFLX", "RHT", "ORCL", "F", "SNE", "EA"
+                                                        ,"T", "DIS", "HPQ", "ORCL", "TWX"};
         public Main_Menu()
         {
             InitializeComponent();
             InitializeStockSearchBox();
         }
 
-        private void InitializeStockSearchBox()
+        private async void InitializeStockSearchBox()
         {
             //TB_Search_Stocks.CharacterCasing = CharacterCasing.Upper;
             AutoCompleteStringCollection searchableSymbols = new AutoCompleteStringCollection();
-            searchableSymbols.AddRange(API.GetSymbols());
+            searchableSymbols.AddRange(await API.GetSymbols());
             TB_Search_Stocks.AutoCompleteCustomSource = searchableSymbols;
             TB_Search_Stocks.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             TB_Search_Stocks.AutoCompleteSource = AutoCompleteSource.CustomSource;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private async void Form1_Load(object sender, EventArgs e)
         {
             pbLoading.Hide();
             Welcome_Form welcome_Form = new Welcome_Form();
             welcome_Form.ShowDialog();
-            updateMostPopularList();
+            await updateMostPopularList();
             pbLoading.SizeMode = PictureBoxSizeMode.CenterImage;
             
 
@@ -70,44 +72,16 @@ namespace StockPortfolio
            
         }
 
-        private void BTN_exit_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
-        private void BTN_about_Click(object sender, EventArgs e)
-        {
-            About_Form af = new About_Form();
-            af.ShowDialog();
-        }
-
         private void PB_Main_Logo_Click(object sender, EventArgs e)
         {
-            // nejke, glupost e, me mrzi da namestam relative path
-
-            //System.Media.SoundPlayer player = new System.Media.SoundPlayer
-            //{
-            //    SoundLocation = @"sound\money.wav"
-            //};
-            //player.Play();
             System.IO.Stream str = Properties.Resources.cash_register_sound;
             System.Media.SoundPlayer snd = new System.Media.SoundPlayer(str);
             snd.Play();
         }
 
-        private void BTN_Refresh_Click(object sender, EventArgs e)
+        private async void BTN_Refresh_Click(object sender, EventArgs e)
         {
-            // TO DO
-            // treba refresh na listite
-            // ili neka bide avtomatsko so timer
-            // ama moze i dvete za ako ne uspee
-            // timer... force refresh
-        }
-
-        private void BTN_help_Click(object sender, EventArgs e)
-        {
-            Help_Form hf = new Help_Form();
-            hf.ShowDialog();
+            await updateMostPopularList();
         }
 
         //vrakja symbol za vlez {ime na firma (symbol)}
@@ -116,7 +90,9 @@ namespace StockPortfolio
             string pattern = @"\(([^()]+)\)";
             string input = s;
             string [] array = Regex.Split(input, pattern);
-            if (array.Length > 1)
+            if (array.Length == 5)
+                return array[3];
+            else if (array.Length == 3)
                 return array[1];
             else
                 return null;
@@ -129,34 +105,55 @@ namespace StockPortfolio
             sc.ShowDialog();
         }
 
-       
-
-
-
-
-
-
-
-        private void updateMostPopularList()
+        private async Task updateMostPopularList()
         {
             lvMostPopular.Items.Clear();
+            var description = string.Format("{0, -32} {1, -15} {2, 10}", "Name", "Price", "Difference");
+            lvMostPopular.Items.Add(description);
+            List<MostPopularStockElement> mpc = new List<MostPopularStockElement>();
+
             foreach (string symbol in mostPopularCompanies)
             {
                 //API.GetQuote(symbol);
-                if (API.FilteredGetQuote(symbol) != null)
+                if (await API.FilteredGetQuote(symbol) != null)
                 {
-                    MostPopularStockElement p = new MostPopularStockElement(API.FilteredGetQuote(symbol));
-                    
-                    if(p.calculateDifference()>0)
-                        lvMostPopular.Items.Add(p.ToString()).ForeColor=Color.Green;
-                    else if(p.calculateDifference() < 0)
-                        lvMostPopular.Items.Add(p.ToString()).ForeColor = Color.Red;
-                    else
-                        lvMostPopular.Items.Add(p.ToString()).ForeColor = Color.LightBlue;
+                    QuoteDto q = await API.FilteredGetQuote(symbol);
+                    MostPopularStockElement p = new MostPopularStockElement(q);
+                    mpc.Add(p);
                 }
                 
             }
-          }
 
+            foreach (var p in mpc)
+            {
+                if (p.calculateDifference() > 0)
+                    lvMostPopular.Items.Add(p.ToString()).ForeColor = Color.Green;
+                else if (p.calculateDifference() < 0)
+                    lvMostPopular.Items.Add(p.ToString()).ForeColor = Color.Red;
+                else
+                    lvMostPopular.Items.Add(p.ToString()).ForeColor = Color.Black;
+            }
+        }
+
+        private void lvMostPopular_MouseDoubleClick_1(object sender, MouseEventArgs e)
+        {
+            //MessageBox.Show(lvMostPopular.SelectedItems[0].SubItems[0].Text);
+            Search_Result_Form srf = new Search_Result_Form();
+            var s = lvMostPopular.SelectedItems[0].SubItems[0].Text.ToString();
+            srf.searchString = s.Substring(0, s.Length-7); //trgni procent vo zagrada da ne zamara za parsiranje so regex posle 
+            srf.ShowDialog();
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            About_Form af = new About_Form();
+            af.ShowDialog();
+        }
+
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Help_Form hf = new Help_Form();
+            hf.ShowDialog();
+        }
     }
 }

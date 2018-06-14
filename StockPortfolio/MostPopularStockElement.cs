@@ -16,10 +16,10 @@ namespace StockPortfolio
 
         public double LatestPrice { get; set; }
 
+
         public MostPopularStockElement(IEX_API.DTOs.QuoteDto quote)
         {
-            
-            CompanyName = quote.CompanyName;
+            CompanyName = $"{quote.CompanyName} ({quote.Symbol})";
             OpenPrice = quote.Open;
             LatestPrice = quote.LatestPrice;
         }
@@ -33,15 +33,18 @@ namespace StockPortfolio
         {
             double difference = calculateDifference();
             if (difference != 0)
-                return difference / OpenPrice * 100;
+                return difference > 0 ? (difference / OpenPrice) : (difference / OpenPrice) * -1;
             return 0;
 
         }
 
         public override string ToString()
         {
-            
-            return String.Format("{0} ${1} ${2} {3}%", CompanyName, LatestPrice.ToString("0.##"), calculateDifference().ToString("0.##"), calculateDifferencePercentage().ToString("0.##"));
+            var symbol = calculateDifference() > 0 ? @"+" : "";
+            StringBuilder sb = new StringBuilder();
+            sb.Append(LatestPrice.ToString("$0.##").PadRight(10));
+            sb.Append(" " + symbol + (calculateDifference().ToString("0.##") + calculateDifferencePercentage().ToString("(0.##%)")).PadLeft(9));
+            return $"{CompanyName.PadRight(32)} {sb.ToString(), -22}";
             
         }
 

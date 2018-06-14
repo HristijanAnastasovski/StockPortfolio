@@ -27,18 +27,18 @@ namespace StockPortfolio
             pbLoading.Hide();
         }
 
-        private void Search_Result_Form_Load(object sender, EventArgs e)
+        private async void Search_Result_Form_Load(object sender, EventArgs e)
         {
-            fillLabels(searchString);
-            paintGraph(searchString);
+            await fillLabels(searchString);
+            await paintGraph(searchString);
 
         }
 
-        private void InitializeStockSearchBox()
+        private async void InitializeStockSearchBox()
         {
             //TB_Search_Stocks.CharacterCasing = CharacterCasing.Upper;
             AutoCompleteStringCollection searchableSymbols = new AutoCompleteStringCollection();
-            searchableSymbols.AddRange(IEX_API.API.GetSymbols());
+            searchableSymbols.AddRange(await IEX_API.API.GetSymbols());
             TB_Search_Again.AutoCompleteCustomSource = searchableSymbols;
             TB_Search_Again.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             TB_Search_Again.AutoCompleteSource = AutoCompleteSource.CustomSource;
@@ -49,51 +49,64 @@ namespace StockPortfolio
             this.Close();
         }
 
-        private void fillLabels(string str)
+        private async Task fillLabels(string str)
         {
-            IEX_API.DTOs.QuoteDto qd = IEX_API.API.GetQuote(Main_Menu.getSymbol(str));
-            IEX_API.DTOs.CompanyInfoDto cid = IEX_API.API.GetCompanyInfo(Main_Menu.getSymbol(str));
+            IEX_API.DTOs.QuoteDto qd = await IEX_API.API.GetQuote(Main_Menu.getSymbol(str));
+            IEX_API.DTOs.CompanyInfoDto cid = await IEX_API.API.GetCompanyInfo(Main_Menu.getSymbol(str));
             if(cid!=null && qd!=null)
             { 
-            LBL_Company_Name.Text = qd.CompanyName;
-            LBL_Company_market.Text = qd.PrimaryExchange.ToString();
-            LBL_Company_Sector.Text = qd.Sector.ToString();
+            LBL_Company_Name.Text =
+                    qd.CompanyName != "" ? qd.CompanyName : "No Information";
+            LBL_Company_market.Text = 
+                    qd.PrimaryExchange.ToString() != "" ? qd.PrimaryExchange.ToString() : "No Information";
+            LBL_Company_Sector.Text =
+                    qd.Sector.ToString() != "" ? qd.Sector.ToString() : "No Information";
+
+
             if (qd.Open > qd.LatestPrice)
-                LBL_Company_Current_Price.Text = "$" + qd.LatestPrice.ToString("0.##") + " ▼";
+                LBL_Company_Current_Price.Text =
+                        LBL_Company_Current_Price.Text != "" ? "$" + qd.LatestPrice.ToString("0.##") + " ▼" : "No Information";
             else
-                LBL_Company_Current_Price.Text = "$" + qd.LatestPrice.ToString("0.##") + " ▲";
-            LBL_Company_Opening_price.Text = "$" + qd.Open.ToString("0.##");
-            LBL_Company_CEO.Text = cid.Ceo;
-            LBL_LINK.Text = cid.Website;
+                LBL_Company_Current_Price.Text =
+                        LBL_Company_Current_Price.Text != "" ? "$" + qd.LatestPrice.ToString("0.##") + " ▲" : "No Information";
+
+            LBL_Company_Opening_price.Text =
+                    LBL_Company_Opening_price.Text != "" ? "$" + qd.Open.ToString("0.##") : "No Information";
+
+            LBL_Company_CEO.Text = cid.Ceo != "" ? cid.Ceo : "No Information";
+            LBL_LINK.Text = cid.Website != "" ? cid.Website : "No Information";
             }
 
         }
 
        
 
-        private void BTN_Search_Again_Click(object sender, EventArgs e)
+        private async void BTN_Search_Again_Click(object sender, EventArgs e)
         {
             pbLoading.Show();
             pbLoading.Enabled = true;
             string search = TB_Search_Again.Text;
-            if (string.IsNullOrWhiteSpace(search) || IEX_API.API.GetQuote(Main_Menu.getSymbol(search)) == null || IEX_API.API.GetCompanyInfo(Main_Menu.getSymbol(search))==null)
+            if (string.IsNullOrWhiteSpace(search) || await IEX_API.API.GetQuote(Main_Menu.getSymbol(search)) == null
+                || await IEX_API.API.GetCompanyInfo(Main_Menu.getSymbol(search))==null)
             {
                 ErrorProvider_Search_Error.SetError(TB_Search_Again, "Please enter a valid search");
             }
             else
             {
                 ErrorProvider_Search_Error.Clear();
-                fillLabels(TB_Search_Again.Text);
+                await fillLabels(TB_Search_Again.Text);
                 DrawArea = new Bitmap(PB_PAINT.Size.Width, PB_PAINT.Size.Height);
-                paintGraph(TB_Search_Again.Text);
+                await paintGraph(TB_Search_Again.Text);
             }
             pbLoading.Hide();
             pbLoading.Enabled = false;
         }
 
-        private void paintGraph(string str)
+        private async Task paintGraph(string str)
         {
-            IReadOnlyDictionary<DateTimeOffset, IEX_API.DTOs.HistoricalDataDto> dictionary = IEX_API.API.GetHistoricalData(Main_Menu.getSymbol(str));
+            IReadOnlyDictionary<DateTimeOffset, IEX_API.DTOs.HistoricalDataDto> dictionary = 
+                await IEX_API.API.GetHistoricalData(Main_Menu.getSymbol(str));
+
             Graphics g;
             g = Graphics.FromImage(DrawArea);
             
@@ -129,7 +142,7 @@ namespace StockPortfolio
             }
 
             black.Dispose();
-            
+            g.Dispose();
         }
 
         private void LBL_LINK_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

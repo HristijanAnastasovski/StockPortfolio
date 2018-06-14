@@ -19,20 +19,6 @@ namespace StockPortfolio
         public Welcome_Form()
         {
             InitializeComponent();
-
-
-            // sidenote: site ovie simboli "aapl", "msft" i slicno se case insensitive
-            // nema vrska dali ke se povika so "AAPL" ili "AaPL" ili kao bilo
-
-            API.GetHistoricalData("aapl"); // samo za test
-            QuoteDto msft = API.GetQuote("msft"); // samo za test
-            Debug.WriteLine(msft.Symbol); // samo za test
-            List<NewsDto> news = API.GetNews(1).ToList<NewsDto>(); // samo za test
-
-            CompanyInfoDto appleInfo = API.GetCompanyInfo("aapl"); // samo za test
-            Debug.WriteLine("CEO: " + appleInfo.Ceo); // samo za test
-            Debug.WriteLine("Industry: " + appleInfo.Industry); // samo za test
-            Debug.WriteLine("Description: " + appleInfo.Description); // samo za test
         }
 
         private void Welcome_Form_Load(object sender, EventArgs e)

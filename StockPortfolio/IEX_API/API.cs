@@ -19,11 +19,11 @@ namespace StockPortfolio.IEX_API
         // mislam deka mapa bi odgovaralo najvekje
         // datum -> objekt so data so properties 'open, close, low, high, change, changePercentage'
         // ili neshto slicno
-        public static IReadOnlyDictionary<DateTimeOffset, HistoricalDataDto> GetHistoricalData(string symbol)
+        public static async Task<IReadOnlyDictionary<DateTimeOffset, HistoricalDataDto>> GetHistoricalData(string symbol)
         {
             var API_PATH = $"https://api.iextrading.com/1.0/stock/{symbol}/chart/1m";
             API api = new API();
-            var response = api.CallAPI(API_PATH);
+            var response = await api.CallAPI(API_PATH);
 
             if (response.IsSuccessStatusCode)
             {
@@ -55,12 +55,48 @@ namespace StockPortfolio.IEX_API
             return null;
         }
 
+        public static IReadOnlyDictionary<DateTimeOffset, HistoricalDataDto> GetHistoricalDataSync(string symbol)
+        {
+            var API_PATH = $"https://api.iextrading.com/1.0/stock/{symbol}/chart/1m";
+            API api = new API();
+            var response = api.CallAPISync(API_PATH);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var historicalDataList = response.Content.ReadAsAsync<List<HistoricalDataDto>>().GetAwaiter().GetResult();
+                Dictionary<DateTimeOffset, HistoricalDataDto> historicalData = new Dictionary<DateTimeOffset, HistoricalDataDto>();
+                foreach (var d in historicalDataList)
+                {
+                    if (d != null)
+                    {
+                        Debug.WriteLine("Date: " + d.Date);
+                        Debug.WriteLine("Open: " + d.Open);
+                        Debug.WriteLine("Close: " + d.Close);
+                        Debug.WriteLine("Low: " + d.Low);
+                        Debug.WriteLine("High: " + d.High);
+                        Debug.WriteLine("Change: " + d.Change);
+                        Debug.WriteLine("Change Percentage: " + d.ChangePercent);
+
+                        // stavame se vo recnik kade shto KEY e datumot a VALUE e objekt od HistoricalDataDto so site informacii za toj datum
+                        HistoricalDataDto data = new HistoricalDataDto(d.Open, d.High, d.Low, d.Close, d.Volume, d.UnadjustedVolume,
+                            d.Change, d.ChangePercent, d.Vwap, d.Label, d.ChangeOverTime);
+                        historicalData[d.Date] = data;
+
+
+                    }
+                }
+                return historicalData;
+            }
+
+            return null;
+        }
+
         // gi vrakja site aktivni simboli
-        public static string[] GetSymbols()
+        public static async Task<string[]> GetSymbols()
         {
             var API_PATH = $"https://api.iextrading.com/1.0/ref-data/symbols?filter=symbol,isEnabled,name";
             API api = new API();
-            var response = api.CallAPI(API_PATH);
+            var response = await api.CallAPI(API_PATH);
             List<String> symbols = new List<string>();
 
             if (response.IsSuccessStatusCode)
@@ -77,11 +113,11 @@ namespace StockPortfolio.IEX_API
         }
 
         // @newsCount -> posledni N vesti za vrakjanje
-        public static IEnumerable<NewsDto> GetNews(int newsCount)
+        public static async Task<IEnumerable<NewsDto>> GetNews(int newsCount)
         {
             var API_PATH = $"https://api.iextrading.com/1.0/stock/market/news/last/{newsCount}";
             API api = new API();
-            var response = api.CallAPI(API_PATH);
+            var response = await api.CallAPI(API_PATH);
 
             if (response.IsSuccessStatusCode)
             {
@@ -105,12 +141,12 @@ namespace StockPortfolio.IEX_API
 
         // informacii za kompanijata so simbol @symbol
         // informacii od tip 'cena na akcii, kolku se trejda, skoro realtime'
-        public static QuoteDto GetQuote(string symbol)
+        public static async Task<QuoteDto> GetQuote(string symbol)
         {
 
             var API_PATH = $"https://api.iextrading.com/1.0/stock/{symbol}/quote";
             API api = new API();
-            var response = api.CallAPI(API_PATH);
+            var response = await api.CallAPI(API_PATH);
 
             if (response.IsSuccessStatusCode)
             {
@@ -131,12 +167,12 @@ namespace StockPortfolio.IEX_API
             return null;
         }
 
-        public static QuoteDto FilteredGetQuote(string symbol)
+        public static async Task<QuoteDto> FilteredGetQuote(string symbol)
         {
 
-            var API_PATH = $"https://api.iextrading.com/1.0/stock/{symbol}/quote?filter=companyName,open,latestPrice";
+            var API_PATH = $"https://api.iextrading.com/1.0/stock/{symbol}/quote?filter=companyName,open,latestPrice,symbol";
             API api = new API();
-            var response = api.CallAPI(API_PATH);
+            var response = await api.CallAPI(API_PATH);
 
             if (response.IsSuccessStatusCode)
             {
@@ -156,11 +192,11 @@ namespace StockPortfolio.IEX_API
 
         // @symbol -> za koja kompanija se baraat informacii
         // informacii od tipot, koj e CEO, od koja industrija e kompanijata, kratok opis na kompanijata
-        public static CompanyInfoDto GetCompanyInfo(string symbol)
+        public static async Task<CompanyInfoDto> GetCompanyInfo(string symbol)
         {
             var API_PATH = $"https://api.iextrading.com/1.0/stock/{symbol}/company";
             API api = new API();
-            var response = api.CallAPI(API_PATH);
+            var response = await api.CallAPI(API_PATH);
 
             if (response.IsSuccessStatusCode)
             {
@@ -171,7 +207,21 @@ namespace StockPortfolio.IEX_API
             return null;
         }
 
-        private HttpResponseMessage CallAPI(string API_PATH)
+        private async Task<HttpResponseMessage> CallAPI(string API_PATH)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+                client.BaseAddress = new Uri(API_PATH);
+                HttpResponseMessage response = await client.GetAsync(API_PATH);
+
+                return response;
+            }
+        }
+
+        private HttpResponseMessage CallAPISync(string API_PATH)
         {
             using (HttpClient client = new HttpClient())
             {

@@ -2,8 +2,7 @@
   "ExpandedNodes": [
     "",
     "\\StockPortfolio",
-    "\\StockPortfolio\\IEX_API",
-    "\\StockPortfolio\\IEX_API\\POCOS"
+    "\\StockPortfolio\\IEX_API"
   ],
   "SelectedNode": "\\StockPortfolio\\IEX_API\\API.cs",
   "PreviewInSolutionExplorer": false

@@ -81,3 +81,4 @@ C:\Users\User\source\repos\StockPortfolio\StockPortfolio\obj\Debug\StockPortfoli
 C:\Users\User\source\repos\StockPortfolio\StockPortfolio\obj\Debug\StockPortfolio.exe
 C:\Users\User\source\repos\StockPortfolio\StockPortfolio\obj\Debug\StockPortfolio.pdb
 C:\Users\User\source\repos\StockPortfolio\StockPortfolio\obj\Debug\StockPortfolio.StockCalculator.resources
+C:\Users\Bojan Barisic\source\repos\StockPortfolio\StockPortfolio\obj\Debug\StockPortfolio.StockCalculator.resources

@@ -308,6 +308,7 @@
             this.PB_PAINT.Size = new System.Drawing.Size(624, 300);
             this.PB_PAINT.TabIndex = 14;
             this.PB_PAINT.TabStop = false;
+            this.PB_PAINT.WaitOnLoad = true;
             // 
             // Search_Result_Form
             // 

@@ -25,20 +25,25 @@ namespace StockPortfolio
             numberError = false;
             priceError = false;
             voiceEnabled = true;
-            AutoCompleteStringCollection searchableSymbols = new AutoCompleteStringCollection();
-            searchableSymbols.AddRange(IEX_API.API.GetSymbols());
-            tbCompany.AutoCompleteCustomSource = searchableSymbols;
-            tbCompany.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            tbCompany.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            InitializeSearchBox();
             lblMessage.Text = "";
         }
 
-        private void btnCalculate_Click(object sender, EventArgs e)
+        private async void InitializeSearchBox()
+        {
+            AutoCompleteStringCollection searchableSymbols = new AutoCompleteStringCollection();
+            searchableSymbols.AddRange(await IEX_API.API.GetSymbols());
+            tbCompany.AutoCompleteCustomSource = searchableSymbols;
+            tbCompany.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            tbCompany.AutoCompleteSource = AutoCompleteSource.CustomSource;
+        }
+
+        private async void btnCalculate_Click(object sender, EventArgs e)
         {
             if(!companyError && !numberError && !priceError)
             {
                 string company = tbCompany.Text;
-                IEX_API.DTOs.QuoteDto qd = IEX_API.API.GetQuote(Main_Menu.getSymbol(company));
+                IEX_API.DTOs.QuoteDto qd = await IEX_API.API.GetQuote(Main_Menu.getSymbol(company));
                 double price = qd.LatestPrice;
                 int numberBought = Convert.ToInt32(tbNumberBought.Text);
                 double priceBought = Convert.ToDouble(tbPrice.Text);
