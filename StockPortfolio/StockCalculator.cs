@@ -31,11 +31,22 @@ namespace StockPortfolio
 
         private async void InitializeSearchBox()
         {
-            AutoCompleteStringCollection searchableSymbols = new AutoCompleteStringCollection();
-            searchableSymbols.AddRange(await IEX_API.API.GetSymbols());
-            tbCompany.AutoCompleteCustomSource = searchableSymbols;
-            tbCompany.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            tbCompany.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            try
+            {
+                AutoCompleteStringCollection searchableSymbols = new AutoCompleteStringCollection();
+                searchableSymbols.AddRange(await IEX_API.API.GetSymbols());
+                tbCompany.AutoCompleteCustomSource = searchableSymbols;
+                tbCompany.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                tbCompany.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            }
+            catch(System.Net.WebException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("BELJA " + ex.Message);
+            }
         }
 
         private async void btnCalculate_Click(object sender, EventArgs e)

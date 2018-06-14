@@ -7,6 +7,8 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.Runtime;
+using System.Runtime.InteropServices;
 
 namespace StockPortfolio.IEX_API
 {
@@ -23,72 +25,88 @@ namespace StockPortfolio.IEX_API
         {
             var API_PATH = $"https://api.iextrading.com/1.0/stock/{symbol}/chart/1m";
             API api = new API();
-            var response = await api.CallAPI(API_PATH);
 
-            if (response.IsSuccessStatusCode)
+            try
             {
-                var historicalDataList = response.Content.ReadAsAsync<List<HistoricalDataDto>>().GetAwaiter().GetResult();
-                Dictionary<DateTimeOffset, HistoricalDataDto> historicalData = new Dictionary<DateTimeOffset, HistoricalDataDto>();
-                foreach (var d in historicalDataList)
+                var response = await api.CallAPI(API_PATH);
+
+                if (response.IsSuccessStatusCode)
                 {
-                    if (d != null)
+                    var historicalDataList = response.Content.ReadAsAsync<List<HistoricalDataDto>>().GetAwaiter().GetResult();
+                    Dictionary<DateTimeOffset, HistoricalDataDto> historicalData = new Dictionary<DateTimeOffset, HistoricalDataDto>();
+                    foreach (var d in historicalDataList)
                     {
-                        Debug.WriteLine("Date: " + d.Date);
-                        Debug.WriteLine("Open: " + d.Open);
-                        Debug.WriteLine("Close: " + d.Close);
-                        Debug.WriteLine("Low: " + d.Low);
-                        Debug.WriteLine("High: " + d.High);
-                        Debug.WriteLine("Change: " + d.Change);
-                        Debug.WriteLine("Change Percentage: " + d.ChangePercent);
+                        if (d != null)
+                        {
+                            Debug.WriteLine("Date: " + d.Date);
+                            Debug.WriteLine("Open: " + d.Open);
+                            Debug.WriteLine("Close: " + d.Close);
+                            Debug.WriteLine("Low: " + d.Low);
+                            Debug.WriteLine("High: " + d.High);
+                            Debug.WriteLine("Change: " + d.Change);
+                            Debug.WriteLine("Change Percentage: " + d.ChangePercent);
 
-                        // stavame se vo recnik kade shto KEY e datumot a VALUE e objekt od HistoricalDataDto so site informacii za toj datum
-                        HistoricalDataDto data = new HistoricalDataDto(d.Open, d.High, d.Low, d.Close, d.Volume, d.UnadjustedVolume,
-                            d.Change, d.ChangePercent, d.Vwap, d.Label, d.ChangeOverTime);
-                        historicalData[d.Date] = data;
-                       
-                       
+                            // stavame se vo recnik kade shto KEY e datumot a VALUE e objekt od HistoricalDataDto so site informacii za toj datum
+                            HistoricalDataDto data = new HistoricalDataDto(d.Open, d.High, d.Low, d.Close, d.Volume, d.UnadjustedVolume,
+                                d.Change, d.ChangePercent, d.Vwap, d.Label, d.ChangeOverTime);
+                            historicalData[d.Date] = data;
+
+
+                        }
                     }
+                    return historicalData;
                 }
-                return historicalData;
-            }
 
-            return null;
+                return null;
+            }
+            catch(System.Net.WebException e)
+            {
+                throw e;
+            }
         }
 
         public static IReadOnlyDictionary<DateTimeOffset, HistoricalDataDto> GetHistoricalDataSync(string symbol)
         {
             var API_PATH = $"https://api.iextrading.com/1.0/stock/{symbol}/chart/1m";
             API api = new API();
-            var response = api.CallAPISync(API_PATH);
 
-            if (response.IsSuccessStatusCode)
+            try
             {
-                var historicalDataList = response.Content.ReadAsAsync<List<HistoricalDataDto>>().GetAwaiter().GetResult();
-                Dictionary<DateTimeOffset, HistoricalDataDto> historicalData = new Dictionary<DateTimeOffset, HistoricalDataDto>();
-                foreach (var d in historicalDataList)
+                var response = api.CallAPISync(API_PATH);
+
+                if (response.IsSuccessStatusCode)
                 {
-                    if (d != null)
+                    var historicalDataList = response.Content.ReadAsAsync<List<HistoricalDataDto>>().GetAwaiter().GetResult();
+                    Dictionary<DateTimeOffset, HistoricalDataDto> historicalData = new Dictionary<DateTimeOffset, HistoricalDataDto>();
+                    foreach (var d in historicalDataList)
                     {
-                        Debug.WriteLine("Date: " + d.Date);
-                        Debug.WriteLine("Open: " + d.Open);
-                        Debug.WriteLine("Close: " + d.Close);
-                        Debug.WriteLine("Low: " + d.Low);
-                        Debug.WriteLine("High: " + d.High);
-                        Debug.WriteLine("Change: " + d.Change);
-                        Debug.WriteLine("Change Percentage: " + d.ChangePercent);
+                        if (d != null)
+                        {
+                            Debug.WriteLine("Date: " + d.Date);
+                            Debug.WriteLine("Open: " + d.Open);
+                            Debug.WriteLine("Close: " + d.Close);
+                            Debug.WriteLine("Low: " + d.Low);
+                            Debug.WriteLine("High: " + d.High);
+                            Debug.WriteLine("Change: " + d.Change);
+                            Debug.WriteLine("Change Percentage: " + d.ChangePercent);
 
-                        // stavame se vo recnik kade shto KEY e datumot a VALUE e objekt od HistoricalDataDto so site informacii za toj datum
-                        HistoricalDataDto data = new HistoricalDataDto(d.Open, d.High, d.Low, d.Close, d.Volume, d.UnadjustedVolume,
-                            d.Change, d.ChangePercent, d.Vwap, d.Label, d.ChangeOverTime);
-                        historicalData[d.Date] = data;
+                            // stavame se vo recnik kade shto KEY e datumot a VALUE e objekt od HistoricalDataDto so site informacii za toj datum
+                            HistoricalDataDto data = new HistoricalDataDto(d.Open, d.High, d.Low, d.Close, d.Volume, d.UnadjustedVolume,
+                                d.Change, d.ChangePercent, d.Vwap, d.Label, d.ChangeOverTime);
+                            historicalData[d.Date] = data;
 
 
+                        }
                     }
+                    return historicalData;
                 }
-                return historicalData;
-            }
 
-            return null;
+                return null;
+            }
+            catch(System.Net.WebException e)
+            {
+                throw e;
+            }
         }
 
         // gi vrakja site aktivni simboli
@@ -96,20 +114,27 @@ namespace StockPortfolio.IEX_API
         {
             var API_PATH = $"https://api.iextrading.com/1.0/ref-data/symbols?filter=symbol,isEnabled,name";
             API api = new API();
-            var response = await api.CallAPI(API_PATH);
-            List<String> symbols = new List<string>();
-
-            if (response.IsSuccessStatusCode)
+            try
             {
-                var symbolObjects = response.Content.ReadAsAsync<List<SymbolDto>>().GetAwaiter().GetResult();
-                foreach (var s in symbolObjects)
-                    if (s != null && s.IsEnabled == true)
-                        symbols.Add($"{s.Name} ({s.Symbol})");
+                var response = await api.CallAPI(API_PATH);
+                List<String> symbols = new List<string>();
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var symbolObjects = response.Content.ReadAsAsync<List<SymbolDto>>().GetAwaiter().GetResult();
+                    foreach (var s in symbolObjects)
+                        if (s != null && s.IsEnabled == true)
+                            symbols.Add($"{s.Name} ({s.Symbol})");
+                }
+
+
+
+                return symbols.ToArray();
             }
-
-            
-
-            return symbols.ToArray();
+            catch(System.Net.WebException e)
+            {
+                throw e;
+            }
         }
 
         // @newsCount -> posledni N vesti za vrakjanje
@@ -117,26 +142,33 @@ namespace StockPortfolio.IEX_API
         {
             var API_PATH = $"https://api.iextrading.com/1.0/stock/market/news/last/{newsCount}";
             API api = new API();
-            var response = await api.CallAPI(API_PATH);
-
-            if (response.IsSuccessStatusCode)
+            try
             {
-                var news = response.Content.ReadAsAsync<List<NewsDto>>().GetAwaiter().GetResult();
-                foreach (var n in news)
+                var response = await api.CallAPI(API_PATH);
+
+                if (response.IsSuccessStatusCode)
                 {
-                    Debug.WriteLine("DateTime: " + n.Datetime);
-                    Debug.WriteLine("Headline: " + n.Headline);
-                    Debug.WriteLine("Source: " + n.Source);
-                    Debug.WriteLine("Url: " + n.Url);
-                    Debug.WriteLine("Summary: " + n.Summary);
-                    Debug.WriteLine("Related: " + n.Related);
-                    Debug.WriteLine("Image: " + n.Image);
+                    var news = response.Content.ReadAsAsync<List<NewsDto>>().GetAwaiter().GetResult();
+                    foreach (var n in news)
+                    {
+                        Debug.WriteLine("DateTime: " + n.Datetime);
+                        Debug.WriteLine("Headline: " + n.Headline);
+                        Debug.WriteLine("Source: " + n.Source);
+                        Debug.WriteLine("Url: " + n.Url);
+                        Debug.WriteLine("Summary: " + n.Summary);
+                        Debug.WriteLine("Related: " + n.Related);
+                        Debug.WriteLine("Image: " + n.Image);
+                    }
+
+                    return news;
                 }
 
-                return news;
+                return Enumerable.Empty<NewsDto>();
             }
-
-            return Enumerable.Empty<NewsDto>();
+            catch(System.Net.WebException e)
+            {
+                throw e;
+            }
         }
 
         // informacii za kompanijata so simbol @symbol
@@ -148,23 +180,30 @@ namespace StockPortfolio.IEX_API
             API api = new API();
             var response = await api.CallAPI(API_PATH);
 
-            if (response.IsSuccessStatusCode)
+            try
             {
-                var json = response.Content.ReadAsStringAsync();
-                //string test = @"{'symbol':'MSFT','companyName':'Microsoft Corporation','primaryExchange':'Nasdaq Global Select','sector':'Technology','calculationPrice':'close','open': null,'openTime':1528810200772,'close':101.31,'closeTime':1528833600808,'high':101.449,'low':100.75,'latestPrice':101.31,'latestSource':'Close','latestTime':'June 12, 2018','latestUpdate':1528833600808,'latestVolume':18075465,'iexRealtimePrice':101.32,'iexRealtimeSize':200,'iexLastUpdated':1528833595083,'delayedPrice':101.31,'delayedPriceTime':1528833600808,'extendedPrice':101.31,'extendedChange':0,'extendedChangePercent':0,'extendedPriceTime':1528837185650,'previousClose':101.05,'change':0.26,'changePercent':0.00257,'iexMarketPercent':0.03012,'iexVolume':544433,'avgTotalVolume':24155353,'iexBidPrice':0,'iexBidSize':0,'iexAskPrice':0,'iexAskSize':0,'marketCap':778384739029,'peRatio':29.97,'week52High':102.69,'week52Low':68.02, 'ytdChange':0.1888952679651087}";
-                var quote = JsonConvert.DeserializeObject<QuoteDto>(json.Result, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
-                if (quote != null)
+                if (response.IsSuccessStatusCode)
                 {
-                    Debug.WriteLine("Symbol: " + quote.Symbol);
-                    Debug.WriteLine("Company Name: " + quote.CompanyName);
-                    Debug.WriteLine("Primary Exchange: " + quote.PrimaryExchange);
-                    Debug.WriteLine("Sector: " + quote.Sector);
-                    Debug.WriteLine("Open: " + quote.Open);
-                    return quote;
+                    var json = response.Content.ReadAsStringAsync();
+                    //string test = @"{'symbol':'MSFT','companyName':'Microsoft Corporation','primaryExchange':'Nasdaq Global Select','sector':'Technology','calculationPrice':'close','open': null,'openTime':1528810200772,'close':101.31,'closeTime':1528833600808,'high':101.449,'low':100.75,'latestPrice':101.31,'latestSource':'Close','latestTime':'June 12, 2018','latestUpdate':1528833600808,'latestVolume':18075465,'iexRealtimePrice':101.32,'iexRealtimeSize':200,'iexLastUpdated':1528833595083,'delayedPrice':101.31,'delayedPriceTime':1528833600808,'extendedPrice':101.31,'extendedChange':0,'extendedChangePercent':0,'extendedPriceTime':1528837185650,'previousClose':101.05,'change':0.26,'changePercent':0.00257,'iexMarketPercent':0.03012,'iexVolume':544433,'avgTotalVolume':24155353,'iexBidPrice':0,'iexBidSize':0,'iexAskPrice':0,'iexAskSize':0,'marketCap':778384739029,'peRatio':29.97,'week52High':102.69,'week52Low':68.02, 'ytdChange':0.1888952679651087}";
+                    var quote = JsonConvert.DeserializeObject<QuoteDto>(json.Result, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+                    if (quote != null)
+                    {
+                        Debug.WriteLine("Symbol: " + quote.Symbol);
+                        Debug.WriteLine("Company Name: " + quote.CompanyName);
+                        Debug.WriteLine("Primary Exchange: " + quote.PrimaryExchange);
+                        Debug.WriteLine("Sector: " + quote.Sector);
+                        Debug.WriteLine("Open: " + quote.Open);
+                        return quote;
+                    }
                 }
-            }
 
-            return null;
+                return null;
+            }
+            catch(System.Net.WebException e)
+            {
+                throw e;
+            }
         }
 
         public static async Task<QuoteDto> FilteredGetQuote(string symbol)
@@ -172,22 +211,30 @@ namespace StockPortfolio.IEX_API
 
             var API_PATH = $"https://api.iextrading.com/1.0/stock/{symbol}/quote?filter=companyName,open,latestPrice,symbol";
             API api = new API();
-            var response = await api.CallAPI(API_PATH);
 
-            if (response.IsSuccessStatusCode)
+            try
             {
-                var json = response.Content.ReadAsStringAsync();
-                //string test = @"{'symbol':'MSFT','companyName':'Microsoft Corporation','primaryExchange':'Nasdaq Global Select','sector':'Technology','calculationPrice':'close','open': null,'openTime':1528810200772,'close':101.31,'closeTime':1528833600808,'high':101.449,'low':100.75,'latestPrice':101.31,'latestSource':'Close','latestTime':'June 12, 2018','latestUpdate':1528833600808,'latestVolume':18075465,'iexRealtimePrice':101.32,'iexRealtimeSize':200,'iexLastUpdated':1528833595083,'delayedPrice':101.31,'delayedPriceTime':1528833600808,'extendedPrice':101.31,'extendedChange':0,'extendedChangePercent':0,'extendedPriceTime':1528837185650,'previousClose':101.05,'change':0.26,'changePercent':0.00257,'iexMarketPercent':0.03012,'iexVolume':544433,'avgTotalVolume':24155353,'iexBidPrice':0,'iexBidSize':0,'iexAskPrice':0,'iexAskSize':0,'marketCap':778384739029,'peRatio':29.97,'week52High':102.69,'week52Low':68.02, 'ytdChange':0.1888952679651087}";
-                var quote = JsonConvert.DeserializeObject<QuoteDto>(json.Result, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
-                if (quote != null)
-                {                  
-                    Debug.WriteLine("Company Name: " + quote.CompanyName);                   
-                    Debug.WriteLine("Open: " + quote.Open);
-                    return quote;
-                }
-            }
+                var response = await api.CallAPI(API_PATH);
 
-            return null;
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = response.Content.ReadAsStringAsync();
+                    //string test = @"{'symbol':'MSFT','companyName':'Microsoft Corporation','primaryExchange':'Nasdaq Global Select','sector':'Technology','calculationPrice':'close','open': null,'openTime':1528810200772,'close':101.31,'closeTime':1528833600808,'high':101.449,'low':100.75,'latestPrice':101.31,'latestSource':'Close','latestTime':'June 12, 2018','latestUpdate':1528833600808,'latestVolume':18075465,'iexRealtimePrice':101.32,'iexRealtimeSize':200,'iexLastUpdated':1528833595083,'delayedPrice':101.31,'delayedPriceTime':1528833600808,'extendedPrice':101.31,'extendedChange':0,'extendedChangePercent':0,'extendedPriceTime':1528837185650,'previousClose':101.05,'change':0.26,'changePercent':0.00257,'iexMarketPercent':0.03012,'iexVolume':544433,'avgTotalVolume':24155353,'iexBidPrice':0,'iexBidSize':0,'iexAskPrice':0,'iexAskSize':0,'marketCap':778384739029,'peRatio':29.97,'week52High':102.69,'week52Low':68.02, 'ytdChange':0.1888952679651087}";
+                    var quote = JsonConvert.DeserializeObject<QuoteDto>(json.Result, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+                    if (quote != null)
+                    {
+                        Debug.WriteLine("Company Name: " + quote.CompanyName);
+                        Debug.WriteLine("Open: " + quote.Open);
+                        return quote;
+                    }
+                }
+
+                return null;
+            }
+            catch(System.Net.WebException e)
+            {
+                throw e;
+            }
         }
 
         // @symbol -> za koja kompanija se baraat informacii
@@ -196,33 +243,52 @@ namespace StockPortfolio.IEX_API
         {
             var API_PATH = $"https://api.iextrading.com/1.0/stock/{symbol}/company";
             API api = new API();
-            var response = await api.CallAPI(API_PATH);
 
-            if (response.IsSuccessStatusCode)
+            try
             {
-                var info = response.Content.ReadAsAsync<CompanyInfoDto>().GetAwaiter().GetResult();
-                return info;
-            }
+                var response = await api.CallAPI(API_PATH);
 
-            return null;
+                if (response.IsSuccessStatusCode)
+                {
+                    var info = response.Content.ReadAsAsync<CompanyInfoDto>().GetAwaiter().GetResult();
+                    return info;
+                }
+
+                return null;
+            }
+            catch(System.Net.WebException e)
+            {
+                throw e;
+            }
         }
 
         private async Task<HttpResponseMessage> CallAPI(string API_PATH)
         {
-            using (HttpClient client = new HttpClient())
+            if (API.hasInternet() == false)
+                throw new System.Net.WebException("No internet connection detected, please try again later");
+            try
             {
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+                using (HttpClient client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.Accept.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
-                client.BaseAddress = new Uri(API_PATH);
-                HttpResponseMessage response = await client.GetAsync(API_PATH);
-
-                return response;
+                    client.BaseAddress = new Uri(API_PATH);
+                    HttpResponseMessage response = await client.GetAsync(API_PATH);
+                    return response;
+                }
             }
+            catch (System.Net.WebException e)
+            {
+                throw e;
+            }        
         }
 
         private HttpResponseMessage CallAPISync(string API_PATH)
         {
+            if (API.hasInternet() == false)
+                throw new System.Net.WebException("No internet connection detected, please try again later");
+
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Accept.Clear();
@@ -233,6 +299,15 @@ namespace StockPortfolio.IEX_API
 
                 return response;
             }
+        }
+
+        [DllImport("wininet.dll")]
+        private extern static bool InternetGetConnectedState(out int Description, int ReservedValue);
+
+        public static bool hasInternet()
+        {
+            int Desc;
+            return InternetGetConnectedState(out Desc, 0);
         }
     }
 }

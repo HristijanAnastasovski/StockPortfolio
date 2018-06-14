@@ -32,7 +32,7 @@ namespace StockPortfolio
         {
             time--;
             LB_timeleft.Text = String.Format($"Continuing in {time}");
-            if(time <= 0)
+            if (time <= 0)
             {
                 timer1.Stop();
                 timer1.Enabled = false;

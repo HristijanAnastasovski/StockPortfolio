@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -28,11 +29,22 @@ namespace StockPortfolio
         private async void InitializeStockSearchBox()
         {
             //TB_Search_Stocks.CharacterCasing = CharacterCasing.Upper;
-            AutoCompleteStringCollection searchableSymbols = new AutoCompleteStringCollection();
-            searchableSymbols.AddRange(await API.GetSymbols());
-            TB_Search_Stocks.AutoCompleteCustomSource = searchableSymbols;
-            TB_Search_Stocks.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            TB_Search_Stocks.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            try
+            {
+                AutoCompleteStringCollection searchableSymbols = new AutoCompleteStringCollection();
+                searchableSymbols.AddRange(await API.GetSymbols());
+                TB_Search_Stocks.AutoCompleteCustomSource = searchableSymbols;
+                TB_Search_Stocks.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                TB_Search_Stocks.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            }
+            catch(System.Net.WebException e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show("B E L J A" + e.Message);
+            }
         }
 
         private async void Form1_Load(object sender, EventArgs e)
@@ -42,34 +54,41 @@ namespace StockPortfolio
             welcome_Form.ShowDialog();
             await updateMostPopularList();
             pbLoading.SizeMode = PictureBoxSizeMode.CenterImage;
-            
-
         }
 
         private void BTN_Search_Stocks_Click(object sender, EventArgs e)
         {
             search = TB_Search_Stocks.Text;
-            
-           
-            if (string.IsNullOrWhiteSpace(search) || API.GetQuote(getSymbol(search))==null || API.GetCompanyInfo(Main_Menu.getSymbol(search)) == null)
-            {
-                ErrorProvider_Search_Error.SetError(TB_Search_Stocks, "Please enter a valid search");
-                
-            }
-            else
-            {
-                pbLoading.Show();
-                ErrorProvider_Search_Error.Clear();
-                Search_Result_Form srf = new Search_Result_Form();
-                srf.searchString = TB_Search_Stocks.Text.ToString();
 
-                pbLoading.Hide();
-                srf.ShowDialog();
-                
+            try
+            {
+                if (string.IsNullOrWhiteSpace(search) || API.GetQuote(getSymbol(search)) == null || API.GetCompanyInfo(Main_Menu.getSymbol(search)) == null)
+                {
+                    ErrorProvider_Search_Error.SetError(TB_Search_Stocks, "Please enter a valid search");
+
+                }
+                else
+                {
+                    pbLoading.Show();
+                    ErrorProvider_Search_Error.Clear();
+                    Search_Result_Form srf = new Search_Result_Form();
+                    srf.searchString = TB_Search_Stocks.Text.ToString();
+
+                    pbLoading.Hide();
+                    srf.ShowDialog();
+
+
+                }
 
             }
-            
-           
+            catch(System.Net.WebException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("BELJA! " + ex.Message);
+            }
         }
 
         private void PB_Main_Logo_Click(object sender, EventArgs e)
@@ -112,26 +131,37 @@ namespace StockPortfolio
             lvMostPopular.Items.Add(description);
             List<MostPopularStockElement> mpc = new List<MostPopularStockElement>();
 
-            foreach (string symbol in mostPopularCompanies)
+            try
             {
-                //API.GetQuote(symbol);
-                if (await API.FilteredGetQuote(symbol) != null)
+                foreach (string symbol in mostPopularCompanies)
                 {
-                    QuoteDto q = await API.FilteredGetQuote(symbol);
-                    MostPopularStockElement p = new MostPopularStockElement(q);
-                    mpc.Add(p);
-                }
-                
-            }
+                    //API.GetQuote(symbol);
+                    if (await API.FilteredGetQuote(symbol) != null)
+                    {
+                        QuoteDto q = await API.FilteredGetQuote(symbol);
+                        MostPopularStockElement p = new MostPopularStockElement(q);
+                        mpc.Add(p);
+                    }
 
-            foreach (var p in mpc)
+                }
+
+                foreach (var p in mpc)
+                {
+                    if (p.calculateDifference() > 0)
+                        lvMostPopular.Items.Add(p.ToString()).ForeColor = Color.Green;
+                    else if (p.calculateDifference() < 0)
+                        lvMostPopular.Items.Add(p.ToString()).ForeColor = Color.Red;
+                    else
+                        lvMostPopular.Items.Add(p.ToString()).ForeColor = Color.Black;
+                }
+            }
+            catch(System.Net.WebException e)
             {
-                if (p.calculateDifference() > 0)
-                    lvMostPopular.Items.Add(p.ToString()).ForeColor = Color.Green;
-                else if (p.calculateDifference() < 0)
-                    lvMostPopular.Items.Add(p.ToString()).ForeColor = Color.Red;
-                else
-                    lvMostPopular.Items.Add(p.ToString()).ForeColor = Color.Black;
+                MessageBox.Show(e.Message);
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show("BELJA " + e.Message);
             }
         }
 
