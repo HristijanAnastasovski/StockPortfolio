@@ -166,9 +166,10 @@ namespace StockPortfolio
             lvMostPopular.Items.Clear();
             var description = string.Format("{0, -32} {1, -11} {2, -5}", "Name", "Price", "Difference");
             lvMostPopular.Items.Add(description);
-            var data = await API.GetBatchQuoteData(mostPopularCompanies); //fraerski prakjame niza simboli
+
             try
             {
+                var data = await API.GetBatchQuoteData(mostPopularCompanies); //fraerski prakjame niza simboli
                 foreach (var symbol in data.Values)
                 {
 

@@ -58,16 +58,6 @@
         }
     }
 
-    public enum CalculationPrice { Close };
-
-    public enum LatestSource { Close };
-
-    public enum LatestTime { June142018 };
-
-    public enum PrimaryExchange { NasdaqGlobalSelect, NewYorkStockExchange };
-
-    public enum Sector { CommunicationServices, ConsumerCyclical, Technology };
-
     public partial class BatchQuoteDto
     {
         public static Dictionary<string, BatchQuoteDto> FromJson(string json) => JsonConvert.DeserializeObject<Dictionary<string, BatchQuoteDto>>(json);
