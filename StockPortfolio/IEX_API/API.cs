@@ -13,7 +13,7 @@ using System.Runtime.InteropServices;
 namespace StockPortfolio.IEX_API
 {
     // TODO: Refactor
-    // TODO: error handling (try/catch)
+
     class API
     {
         // @symbol za koj ke se vratat podatoci

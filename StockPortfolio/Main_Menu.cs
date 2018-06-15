@@ -204,6 +204,9 @@ namespace StockPortfolio
             NewsSummary1.Hide();
             NewsSummary2.Hide();
             NewsSummary3.Hide();
+
+            label1.Hide();
+            label2.Hide();
         }
 
         private void lvMostPopular_MouseDoubleClick_1(object sender, MouseEventArgs e)
@@ -258,7 +261,9 @@ namespace StockPortfolio
                         list[1].Summary != "No summary available." ? list[1].Summary : "       " + list[1].Summary;
                     NewsSummary3.Text = 
                         list[2].Summary != "No summary available." ? list[2].Summary : "       " + list[2].Summary;
-                                                                                                               
+
+                    label1.Show();
+                    label2.Show();
                     UrlNews1.Show();                                                                           
                     NewsSummary1.Show();                                                                       
                     UrlNews2.Show();                                                                           
@@ -274,7 +279,7 @@ namespace StockPortfolio
                     NewsSummary1.Text = list[0].Summary != "No summary available." ? list[0].Summary : "       " + list[0].Summary;
                     NewsSummary2.Text = list[1].Summary != "No summary available." ? list[2].Summary : "       " + list[0].Summary;
 
-                    label2.Hide();
+                    label1.Show();
                     UrlNews1.Show();
                     NewsSummary1.Show();
                     UrlNews2.Show();
@@ -287,8 +292,6 @@ namespace StockPortfolio
                     UrlNews1.Text = list[0].Headline;
                     NewsSummary1.Text = list[0].Summary != "No summary available." ? list[0].Summary : "       " + list[0].Summary;
 
-                    label2.Hide();
-                    label1.Hide();
                     UrlNews1.Show();
                     NewsSummary1.Show();
                     UrlNews2.Hide();

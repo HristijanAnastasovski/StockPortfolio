@@ -92,9 +92,9 @@ namespace StockPortfolio
 
                     LB_DESCRIPTION.Text = LB_DESCRIPTION.Text != "" ? $"{cid.Description}" : "No Information";
                     LB_DAY_RANGE.Text =
-                        qd.Low.ToString() != null && qd.High.ToString() != null ? $"{qd.Low.ToString()} - {qd.High}" : "No Information";
+                        qd.Low.ToString() != null && qd.High.ToString() != null ? $"{qd.Low.ToString("0.##")} - {qd.High.ToString("0.##")}" : "No Information";
                     LB_WEEK_RANGE.Text =
-                        qd.Week52Low.ToString() != null && qd.Week52High.ToString() != null ? $"{qd.Week52Low} - {qd.Week52High}" : "No Information";
+                        qd.Week52Low.ToString() != null && qd.Week52High.ToString() != null ? $"{qd.Week52Low.ToString("0.##")} - {qd.Week52High.ToString("0.##")}" : "No Information";
 
                     LB_PE_RATIO.Text = qd.PeRatio.ToString() != null ? $"{qd.PeRatio}" : "No Information";
 
