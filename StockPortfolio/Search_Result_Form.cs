@@ -49,7 +49,7 @@ namespace StockPortfolio
             }
             catch(Exception e)
             {
-                MessageBox.Show("BELJA " + e.Message);
+                MessageBox.Show("Error " + e.Message);
             }
         }
 
@@ -97,7 +97,7 @@ namespace StockPortfolio
             }
             catch(Exception e)
             {
-                MessageBox.Show("BELJA " + e.Message);
+                MessageBox.Show("Error " + e.Message);
             }
 
         }
@@ -134,7 +134,7 @@ namespace StockPortfolio
             }
             catch(Exception ex)
             {
-                MessageBox.Show("BELJA " + ex.Message);
+                MessageBox.Show("Error " + ex.Message);
             }
         }
 
@@ -165,7 +165,7 @@ namespace StockPortfolio
             }
             catch(Exception e)
             {
-                MessageBox.Show("BELJA " + e.Message);
+                MessageBox.Show("Error " + e.Message);
             }
 
         }
