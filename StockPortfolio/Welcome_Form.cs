@@ -15,7 +15,7 @@ namespace StockPortfolio
 {
     public partial class Welcome_Form : Form
     {
-        public int time = 3;
+        public int time =4;
         public Welcome_Form()
         {
             InitializeComponent();
@@ -25,15 +25,22 @@ namespace StockPortfolio
 
         private void Welcome_Form_Load(object sender, EventArgs e)
         {
-            LB_timeleft.Text = String.Format($"Continuing in {time}");
+            this.ControlBox = false;
+            LB_timeleft.Text = "Loading";
             timer1.Enabled = true;
             timer1.Start();
+            pbLoading.Enabled = true;
+            
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
             time--;
-            LB_timeleft.Text = String.Format($"Continuing in {time}");
+            LB_timeleft.Text += ".";
+            //LB_timeleft.Text = String.Format($"Continuing in {time}");
+            if (time > 0)
+                pbLoading.Value++;
+                
             if (time <= 0)
             {
                 timer1.Stop();

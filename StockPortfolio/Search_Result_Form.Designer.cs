@@ -126,11 +126,11 @@
             // LB_Company
             // 
             this.LB_Company.AutoSize = true;
-            this.LB_Company.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LB_Company.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LB_Company.Location = new System.Drawing.Point(16, 19);
             this.LB_Company.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LB_Company.Name = "LB_Company";
-            this.LB_Company.Size = new System.Drawing.Size(71, 17);
+            this.LB_Company.Size = new System.Drawing.Size(77, 16);
             this.LB_Company.TabIndex = 4;
             this.LB_Company.Text = "Company:";
             // 
@@ -148,10 +148,11 @@
             // LB_Company_Sector
             // 
             this.LB_Company_Sector.AutoSize = true;
+            this.LB_Company_Sector.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LB_Company_Sector.Location = new System.Drawing.Point(16, 132);
             this.LB_Company_Sector.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LB_Company_Sector.Name = "LB_Company_Sector";
-            this.LB_Company_Sector.Size = new System.Drawing.Size(53, 17);
+            this.LB_Company_Sector.Size = new System.Drawing.Size(57, 16);
             this.LB_Company_Sector.TabIndex = 6;
             this.LB_Company_Sector.Text = "Sector:";
             // 
@@ -169,10 +170,11 @@
             // LB_Company_Primary_Market
             // 
             this.LB_Company_Primary_Market.AutoSize = true;
+            this.LB_Company_Primary_Market.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LB_Company_Primary_Market.Location = new System.Drawing.Point(16, 168);
             this.LB_Company_Primary_Market.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LB_Company_Primary_Market.Name = "LB_Company_Primary_Market";
-            this.LB_Company_Primary_Market.Size = new System.Drawing.Size(107, 17);
+            this.LB_Company_Primary_Market.Size = new System.Drawing.Size(116, 16);
             this.LB_Company_Primary_Market.TabIndex = 8;
             this.LB_Company_Primary_Market.Text = "Primary market:";
             // 
@@ -190,20 +192,22 @@
             // LB_Company_Open
             // 
             this.LB_Company_Open.AutoSize = true;
+            this.LB_Company_Open.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LB_Company_Open.Location = new System.Drawing.Point(16, 212);
             this.LB_Company_Open.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LB_Company_Open.Name = "LB_Company_Open";
-            this.LB_Company_Open.Size = new System.Drawing.Size(101, 17);
+            this.LB_Company_Open.Size = new System.Drawing.Size(109, 16);
             this.LB_Company_Open.TabIndex = 10;
             this.LB_Company_Open.Text = "Opening price:";
             // 
             // LB_Company_Current_Price
             // 
             this.LB_Company_Current_Price.AutoSize = true;
+            this.LB_Company_Current_Price.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LB_Company_Current_Price.Location = new System.Drawing.Point(16, 259);
             this.LB_Company_Current_Price.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LB_Company_Current_Price.Name = "LB_Company_Current_Price";
-            this.LB_Company_Current_Price.Size = new System.Drawing.Size(94, 17);
+            this.LB_Company_Current_Price.Size = new System.Drawing.Size(100, 16);
             this.LB_Company_Current_Price.TabIndex = 11;
             this.LB_Company_Current_Price.Text = "Current price:";
             // 
@@ -232,22 +236,22 @@
             // LB_Company_CEO
             // 
             this.LB_Company_CEO.AutoSize = true;
-            this.LB_Company_CEO.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LB_Company_CEO.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LB_Company_CEO.Location = new System.Drawing.Point(16, 56);
             this.LB_Company_CEO.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LB_Company_CEO.Name = "LB_Company_CEO";
-            this.LB_Company_CEO.Size = new System.Drawing.Size(41, 17);
+            this.LB_Company_CEO.Size = new System.Drawing.Size(43, 16);
             this.LB_Company_CEO.TabIndex = 15;
             this.LB_Company_CEO.Text = "CEO:";
             // 
             // LB_Company_Website
             // 
             this.LB_Company_Website.AutoSize = true;
-            this.LB_Company_Website.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LB_Company_Website.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LB_Company_Website.Location = new System.Drawing.Point(16, 92);
             this.LB_Company_Website.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LB_Company_Website.Name = "LB_Company_Website";
-            this.LB_Company_Website.Size = new System.Drawing.Size(63, 17);
+            this.LB_Company_Website.Size = new System.Drawing.Size(69, 16);
             this.LB_Company_Website.TabIndex = 16;
             this.LB_Company_Website.Text = "Website:";
             // 
@@ -347,77 +351,77 @@
             // lbDayRange
             // 
             this.lbDayRange.AutoSize = true;
-            this.lbDayRange.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbDayRange.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbDayRange.Location = new System.Drawing.Point(359, 168);
             this.lbDayRange.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbDayRange.Name = "lbDayRange";
-            this.lbDayRange.Size = new System.Drawing.Size(83, 17);
+            this.lbDayRange.Size = new System.Drawing.Size(90, 16);
             this.lbDayRange.TabIndex = 25;
             this.lbDayRange.Text = "Day Range:";
             // 
             // lbWeekRange
             // 
             this.lbWeekRange.AutoSize = true;
-            this.lbWeekRange.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbWeekRange.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbWeekRange.Location = new System.Drawing.Point(359, 212);
             this.lbWeekRange.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbWeekRange.Name = "lbWeekRange";
-            this.lbWeekRange.Size = new System.Drawing.Size(114, 17);
+            this.lbWeekRange.Size = new System.Drawing.Size(122, 16);
             this.lbWeekRange.TabIndex = 26;
             this.lbWeekRange.Text = "52 Week Range:";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(359, 56);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(84, 17);
+            this.label5.Size = new System.Drawing.Size(91, 16);
             this.label5.TabIndex = 27;
             this.label5.Text = "Market Cap:";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(359, 19);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(41, 17);
+            this.label6.Size = new System.Drawing.Size(44, 16);
             this.label6.TabIndex = 28;
             this.label6.Text = "Beta:";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(359, 132);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(159, 17);
+            this.label7.Size = new System.Drawing.Size(174, 16);
             this.label7.TabIndex = 29;
             this.label7.Text = "Revenue per employee:";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.Location = new System.Drawing.Point(359, 92);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(69, 17);
+            this.label8.Size = new System.Drawing.Size(74, 16);
             this.label8.TabIndex = 30;
             this.label8.Text = "Revenue:";
             // 
             // lbPeRatio
             // 
             this.lbPeRatio.AutoSize = true;
-            this.lbPeRatio.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbPeRatio.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbPeRatio.Location = new System.Drawing.Point(359, 259);
             this.lbPeRatio.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbPeRatio.Name = "lbPeRatio";
-            this.lbPeRatio.Size = new System.Drawing.Size(71, 17);
+            this.lbPeRatio.Size = new System.Drawing.Size(78, 16);
             this.lbPeRatio.TabIndex = 31;
             this.lbPeRatio.Text = "P/E Ratio:";
             // 
@@ -457,11 +461,11 @@
             // lbDescription
             // 
             this.lbDescription.AutoSize = true;
-            this.lbDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbDescription.Location = new System.Drawing.Point(705, 132);
             this.lbDescription.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbDescription.Name = "lbDescription";
-            this.lbDescription.Size = new System.Drawing.Size(49, 17);
+            this.lbDescription.Size = new System.Drawing.Size(52, 16);
             this.lbDescription.TabIndex = 35;
             this.lbDescription.Text = "About:";
             // 
