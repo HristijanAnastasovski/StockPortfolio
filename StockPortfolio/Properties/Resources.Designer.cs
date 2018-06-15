@@ -106,5 +106,14 @@ namespace StockPortfolio.Properties {
                 return ResourceManager.GetStream("sadTrombone", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream Windows_Navigation_Start {
+            get {
+                return ResourceManager.GetStream("Windows_Navigation_Start", resourceCulture);
+            }
+        }
     }
 }

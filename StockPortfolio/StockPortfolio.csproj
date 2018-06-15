@@ -144,6 +144,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Windows Navigation Start.wav" />
+    <None Include="Windows Shutdown.wav" />
     <None Include="sadTrombone.wav" />
     <None Include="Loading_icon2.gif" />
     <None Include="cash_register_sound.wav" />

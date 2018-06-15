@@ -21,8 +21,6 @@ namespace StockPortfolio
         {
             InitializeComponent();
             InitializeStockSearchBox();
-            DrawArea = new Bitmap(PB_PAINT.Size.Width, PB_PAINT.Size.Height);
-            PB_PAINT.Image = DrawArea;
             pbLoading.SizeMode = PictureBoxSizeMode.CenterImage;
             pbLoading.Hide();
         }
@@ -57,6 +55,9 @@ namespace StockPortfolio
 
         private void BTN_Close_Search_Click(object sender, EventArgs e)
         {
+            System.IO.Stream str = Properties.Resources.Windows_Navigation_Start;
+            System.Media.SoundPlayer snd = new System.Media.SoundPlayer(str);
+            snd.Play();
             this.Close();
         }
 
@@ -105,6 +106,9 @@ namespace StockPortfolio
 
         private async void BTN_Search_Again_Click(object sender, EventArgs e)
         {
+            System.IO.Stream str = Properties.Resources.Windows_Navigation_Start;
+            System.Media.SoundPlayer snd = new System.Media.SoundPlayer(str);
+            snd.Play();
             try
             {
                 pbLoading.Show();
@@ -119,7 +123,6 @@ namespace StockPortfolio
                 {
                     ErrorProvider_Search_Error.Clear();
                     await fillLabels(TB_Search_Again.Text);
-                    DrawArea = new Bitmap(PB_PAINT.Size.Width, PB_PAINT.Size.Height);
                     await paintGraph(TB_Search_Again.Text);
                 }
                 pbLoading.Hide();
@@ -139,45 +142,22 @@ namespace StockPortfolio
         {
             try
             {
+                foreach (var series in stocksChart.Series)
+                {
+                    series.Points.Clear();
+                }
                 IReadOnlyDictionary<DateTimeOffset, IEX_API.DTOs.HistoricalDataDto> dictionary =
                     await IEX_API.API.GetHistoricalData(Main_Menu.getSymbol(str));
-
-                Graphics g;
-                g = Graphics.FromImage(DrawArea);
-
-                Pen black = new Pen(Color.Black, 2);
-
-                float max = 0;
-                float height = PB_PAINT.Height;
-                double[] array = new double[dictionary.Values.Count()];
                 int i = 0;
+                stocksChart.ChartAreas[0].AxisX.Minimum = 0;
+
                 foreach (DateTimeOffset data in dictionary.Keys)
                 {
-                    if (max < dictionary[data].High)
-                        max = (float)dictionary[data].High;
-                    array[i] = dictionary[data].High;
+                    stocksChart.Series["Price"].Points.AddXY(i, dictionary[data].High);
                     i++;
                 }
 
-                float coef = 1;
-                if (max > height)
-                {
-                    coef = height / max;
-                }
 
-
-                int x = 0;
-                for (int j = 0; j < array.Count() - 1; j++)
-                {
-
-                    g.DrawLine(black, x, (float)(height - (array[j] * coef)), x + 30, (float)(height - (array[j + 1] * coef)));
-
-                    x += 30;
-
-                }
-
-                black.Dispose();
-                g.Dispose();
             }
             catch(System.Net.WebException e)
             {

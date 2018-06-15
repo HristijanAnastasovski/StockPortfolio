@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Net.Http;
@@ -20,6 +21,8 @@ namespace StockPortfolio
 
         public static string[] mostPopularCompanies = {"AAPL","MSFT","NIKE","TWTR","AMZN","FB", "TMUS", "NFLX", "RHT", "ORCL", "F", "SNE", "EA"
                                                         ,"T", "DIS", "HPQ", "ORCL", "TWX"};
+
+        public List<string> links;
         public Main_Menu()
         {
             InitializeComponent();
@@ -43,21 +46,34 @@ namespace StockPortfolio
             }
             catch(Exception e)
             {
-                MessageBox.Show("B E L J A" + e.Message);
+                MessageBox.Show("Error" + e.Message);
             }
         }
 
         private async void Form1_Load(object sender, EventArgs e)
         {
+
             pbLoading.Hide();
             Welcome_Form welcome_Form = new Welcome_Form();
             welcome_Form.ShowDialog();
+            UrlNews1.Text = "";
+            UrlNews2.Text = "";
+            UrlNews3.Text = "";
+            links = new List<string>();
             await updateMostPopularList();
             pbLoading.SizeMode = PictureBoxSizeMode.CenterImage;
+            await updateNews();
+            UrlNews1.MaximumSize = new Size(350, 0);
+            UrlNews2.MaximumSize = new Size(350, 0);
+            UrlNews3.MaximumSize = new Size(350, 0);
+            
         }
 
         private void BTN_Search_Stocks_Click(object sender, EventArgs e)
         {
+            System.IO.Stream str = Properties.Resources.Windows_Navigation_Start;
+            System.Media.SoundPlayer snd = new System.Media.SoundPlayer(str);
+            snd.Play();
             search = TB_Search_Stocks.Text;
 
             try
@@ -87,7 +103,7 @@ namespace StockPortfolio
             }
             catch(Exception ex)
             {
-                MessageBox.Show("BELJA! " + ex.Message);
+                MessageBox.Show("Error " + ex.Message);
             }
         }
 
@@ -100,7 +116,11 @@ namespace StockPortfolio
 
         private async void BTN_Refresh_Click(object sender, EventArgs e)
         {
+            System.IO.Stream str = Properties.Resources.Windows_Navigation_Start;
+            System.Media.SoundPlayer snd = new System.Media.SoundPlayer(str);
+            snd.Play();
             await updateMostPopularList();
+            await updateNews();
         }
 
         //vrakja symbol za vlez {ime na firma (symbol)}
@@ -120,12 +140,25 @@ namespace StockPortfolio
 
         private void btnCalculator_Click(object sender, EventArgs e)
         {
+            System.IO.Stream str = Properties.Resources.Windows_Navigation_Start;
+            System.Media.SoundPlayer snd = new System.Media.SoundPlayer(str);
+            snd.Play();
             StockCalculator sc = new StockCalculator();
             sc.ShowDialog();
         }
 
         private async Task updateMostPopularList()
         {
+            BTN_Refresh.Enabled = false;
+            Loading_Most_Popular.Enabled = true;
+            Loading_Most_Popular.Show();
+            Loading_Recent_News.Enabled = true;
+            Loading_Recent_News.Show();
+            UrlNews1.Hide();
+            UrlNews2.Hide();
+            UrlNews3.Hide();
+
+
             lvMostPopular.Items.Clear();
             var description = string.Format("{0, -32} {1, -15} {2, 10}", "Name", "Price", "Difference");
             lvMostPopular.Items.Add(description);
@@ -161,8 +194,13 @@ namespace StockPortfolio
             }
             catch(Exception e)
             {
-                MessageBox.Show("BELJA " + e.Message);
+                MessageBox.Show("Error " + e.Message);
             }
+            BTN_Refresh.Enabled = true;
+            Loading_Most_Popular.Enabled = false;
+            Loading_Most_Popular.Hide();
+            Loading_Recent_News.Enabled = false;
+            Loading_Recent_News.Hide();
         }
 
         private void lvMostPopular_MouseDoubleClick_1(object sender, MouseEventArgs e)
@@ -184,6 +222,74 @@ namespace StockPortfolio
         {
             Help_Form hf = new Help_Form();
             hf.ShowDialog();
+        }
+
+        private async Task updateNews()
+        {
+            
+            
+            UrlNews1.LinkVisited = false;
+            UrlNews2.LinkVisited = false;
+            UrlNews3.LinkVisited = false;
+            links.Clear();
+            try { 
+            UrlNews1.MaximumSize = new Size(320, 0);
+            List<NewsDto> list = new List<NewsDto>();
+            list.AddRange(await API.GetNews(3));
+            foreach(var dto in list)
+            {
+                links.Add(dto.Url);
+
+            }
+            if(list.Count>=3)
+            {
+                UrlNews1.Text = list[0].Headline;
+                UrlNews2.Text = list[1].Headline;
+                UrlNews3.Text = list[2].Headline;
+            }
+            UrlNews1.Show();
+            UrlNews2.Show();
+            UrlNews3.Show();
+            }
+            catch (System.Net.WebException e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error " + e.Message);
+            }
+        }
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {            
+            Application.Exit();
+        }
+
+        private void Url1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if(links[0]!=null)
+            {
+                UrlNews1.LinkVisited = true;
+                Process.Start(links[0]);
+            }
+        }
+
+        private void UrlNews2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (links[1] != null)
+            {
+                UrlNews2.LinkVisited = true;
+                Process.Start(links[1]);
+            }
+        }
+
+        private void UrlNews3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (links[2] != null)
+            {
+                UrlNews3.LinkVisited = true;
+                Process.Start(links[2]);
+            }
         }
     }
 }

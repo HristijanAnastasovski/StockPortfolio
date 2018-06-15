@@ -45,13 +45,16 @@ namespace StockPortfolio
             }
             catch(Exception ex)
             {
-                MessageBox.Show("BELJA " + ex.Message);
+                MessageBox.Show("Error " + ex.Message);
             }
         }
 
         private async void btnCalculate_Click(object sender, EventArgs e)
         {
-            if(!companyError && !numberError && !priceError)
+            System.IO.Stream str = Properties.Resources.Windows_Navigation_Start;
+            System.Media.SoundPlayer snd = new System.Media.SoundPlayer(str);
+            snd.Play();
+            if (!companyError && !numberError && !priceError && !string.IsNullOrWhiteSpace(tbNumberBought.Text) && !string.IsNullOrWhiteSpace(tbPrice.Text))
             {
                 string company = tbCompany.Text;
                 IEX_API.DTOs.QuoteDto qd = await IEX_API.API.GetQuote(Main_Menu.getSymbol(company));
@@ -62,30 +65,49 @@ namespace StockPortfolio
                 double priceSumNow = price * numberBought;
                 double priceSumThen = priceBought * numberBought;
 
-                tbTotalEarnings.Text = "$"+(priceSumNow - priceSumThen).ToString("0.##");
+                tbTotalEarnings.Text = "$" + (priceSumNow - priceSumThen).ToString("0.##");
                 if (priceSumNow > priceSumThen)
-                { 
+                {
                     lblMessage.Text = "Congratulations!";
-                    if(voiceEnabled)
+                    if (voiceEnabled)
                     {
-                       Stream str = Properties.Resources.applause;
-                        System.Media.SoundPlayer snd = new System.Media.SoundPlayer(str);
+                        Stream s = Properties.Resources.applause;
+                        System.Media.SoundPlayer snds = new System.Media.SoundPlayer(str);
                         snd.Play();
 
                     }
                 }
                 else
-                { 
+                {
                     lblMessage.Text = "We are sorry to hear that!";
                     if (voiceEnabled)
                     {
-                        Stream str = Properties.Resources.sadTrombone;
-                        System.Media.SoundPlayer snd = new System.Media.SoundPlayer(str);
+                        Stream strs = Properties.Resources.sadTrombone;
+                        System.Media.SoundPlayer snds = new System.Media.SoundPlayer(str);
                         snd.Play();
                     }
                 }
 
             }
+            else
+            {
+                if (String.IsNullOrWhiteSpace(tbPrice.Text) && String.IsNullOrWhiteSpace(tbNumberBought.Text))
+                {
+                    errorProviderBuyingPrice.SetError(tbPrice, "Please enter a valid number");
+                    errorProviderNumberStocks.SetError(tbNumberBought, "Please enter a valid number");
+                }
+                else if (String.IsNullOrWhiteSpace(tbPrice.Text) && !String.IsNullOrWhiteSpace(tbNumberBought.Text))
+                {
+                    errorProviderBuyingPrice.SetError(tbPrice, "Please enter a valid number");
+                    errorProviderNumberStocks.Clear();
+                }
+                else if (String.IsNullOrWhiteSpace(tbNumberBought.Text) && !String.IsNullOrWhiteSpace(tbPrice.Text))
+                {
+                    errorProviderNumberStocks.SetError(tbNumberBought, "Please enter a valid number");
+                    errorProviderBuyingPrice.Clear();
+                }
+            }
+            
 
         }
 
@@ -109,7 +131,7 @@ namespace StockPortfolio
 
             int n;
             bool isNumeric = int.TryParse(tbNumberBought.Text, out n);
-            if (!isNumeric || string.IsNullOrWhiteSpace(tbNumberBought.Text))
+            if (!isNumeric)
             {
                 errorProviderNumberStocks.SetError(tbNumberBought, "Please enter a number");
                 numberError = true;
@@ -126,7 +148,7 @@ namespace StockPortfolio
             double n;
             bool isNumeric = double.TryParse(tbNumberBought.Text, out n);
             isNumeric = double.TryParse(tbPrice.Text, out n);
-            if (!isNumeric || string.IsNullOrWhiteSpace(tbPrice.Text))
+            if (!isNumeric)
             {
                 errorProviderBuyingPrice.SetError(tbPrice, "Please enter a number");
                 priceError = true;
@@ -140,6 +162,9 @@ namespace StockPortfolio
 
         private void btnClose_Click(object sender, EventArgs e)
         {
+            System.IO.Stream str = Properties.Resources.Windows_Navigation_Start;
+            System.Media.SoundPlayer snd = new System.Media.SoundPlayer(str);
+            snd.Play();
             this.Close();
         }
 
@@ -152,7 +177,7 @@ namespace StockPortfolio
             }
             else
             { 
-                disableToolStripMenuItem.Text = "Enable";
+                disableToolStripMenuItem.Text = "Disable";
                 voiceEnabled = true;
             }
         }
