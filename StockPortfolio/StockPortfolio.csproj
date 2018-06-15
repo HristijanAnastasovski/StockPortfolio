@@ -68,7 +68,9 @@
     <Compile Include="Help_Form.Designer.cs">
       <DependentUpon>Help_Form.cs</DependentUpon>
     </Compile>
+    <Compile Include="IEX_API\DTOs\BatchQuoteDto.cs" />
     <Compile Include="IEX_API\DTOs\CompanyInfoDto.cs" />
+    <Compile Include="IEX_API\DTOs\FinancialDataDto.cs" />
     <Compile Include="IEX_API\DTOs\NewsDto.cs" />
     <Compile Include="IEX_API\DTOs\SymbolDto.cs" />
     <Compile Include="Main_Menu.cs">

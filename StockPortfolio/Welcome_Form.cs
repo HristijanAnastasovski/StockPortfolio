@@ -19,6 +19,8 @@ namespace StockPortfolio
         public Welcome_Form()
         {
             InitializeComponent();
+
+            
         }
 
         private void Welcome_Form_Load(object sender, EventArgs e)

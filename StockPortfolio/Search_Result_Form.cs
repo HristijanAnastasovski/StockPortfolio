@@ -8,14 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
-
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace StockPortfolio
 {
     public partial class Search_Result_Form : Form
     {
         public String searchString { get; set; }
-        Bitmap DrawArea;
 
         public Search_Result_Form()
         {
@@ -67,6 +66,7 @@ namespace StockPortfolio
             {
                 IEX_API.DTOs.QuoteDto qd = await IEX_API.API.GetQuote(Main_Menu.getSymbol(str));
                 IEX_API.DTOs.CompanyInfoDto cid = await IEX_API.API.GetCompanyInfo(Main_Menu.getSymbol(str));
+                IEX_API.DTOs.FinancialDataDto fd = await IEX_API.API.GetFinancialData(Main_Menu.getSymbol(str));
                 if (cid != null && qd != null)
                 {
                     LBL_Company_Name.Text =
@@ -79,16 +79,29 @@ namespace StockPortfolio
 
                     if (qd.Open > qd.LatestPrice)
                         LBL_Company_Current_Price.Text =
-                                LBL_Company_Current_Price.Text != "" ? "$" + qd.LatestPrice.ToString("0.##") + " ▼" : "No Information";
+                                qd.LatestPrice.ToString() != null ? "$" + qd.LatestPrice.ToString("0.##") + " ▼" : "No Information";
                     else
                         LBL_Company_Current_Price.Text =
-                                LBL_Company_Current_Price.Text != "" ? "$" + qd.LatestPrice.ToString("0.##") + " ▲" : "No Information";
+                                qd.LatestPrice.ToString() != null ? "$" + qd.LatestPrice.ToString("0.##") + " ▲" : "No Information";
 
                     LBL_Company_Opening_price.Text =
-                            LBL_Company_Opening_price.Text != "" ? "$" + qd.Open.ToString("0.##") : "No Information";
+                            qd.Open.ToString() != null ? "$" + qd.Open.ToString("0.##") : "No Information";
 
                     LBL_Company_CEO.Text = cid.Ceo != "" ? cid.Ceo : "No Information";
                     LBL_LINK.Text = cid.Website != "" ? cid.Website : "No Information";
+
+                    LB_DESCRIPTION.Text = LB_DESCRIPTION.Text != "" ? $"{cid.Description}" : "No Information";
+                    LB_DAY_RANGE.Text =
+                        qd.Low.ToString() != null && qd.High.ToString() != null ? $"{qd.Low.ToString()} - {qd.High}" : "No Information";
+                    LB_WEEK_RANGE.Text =
+                        qd.Week52Low.ToString() != null && qd.Week52High.ToString() != null ? $"{qd.Week52Low} - {qd.Week52High}" : "No Information";
+
+                    LB_PE_RATIO.Text = qd.PeRatio.ToString() != null ? $"{qd.PeRatio}" : "No Information";
+
+                    LB_BETA.Text = fd.Beta.ToString() != null ?  $"{fd.Beta}" : "No Information";
+                    LB_REVENUE.Text = fd.Revenue.ToString() != null ? $"{fd.Revenue.ToString("#,##0,,M")}" : "No Information";
+                    LB_REV_PER_EMPLOYEE.Text = fd.RevenuePerEmployee.ToString() != null ? $"{fd.RevenuePerEmployee.ToString("#,##0,K")}" : "No Information";
+                    LB_MARKETCAP.Text = fd.Marketcap.ToString() != null ? $"{fd.Marketcap.ToString("#,##0,,M")}" : "No Information";
                 }
             }
             catch(System.Net.WebException e)
@@ -173,6 +186,40 @@ namespace StockPortfolio
         private void LBL_LINK_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start(LBL_LINK.Text);
+        }
+
+        private Point? prevPosition = null;
+        private ToolTip toolTip = new ToolTip();
+        private void stocksChart_MouseMove(object sender, MouseEventArgs e)
+        {
+            var position = e.Location;
+            if (prevPosition.HasValue && position == prevPosition.Value)
+                return;
+            toolTip.RemoveAll();
+            prevPosition = position;
+
+            var results = stocksChart.HitTest(position.X, position.Y, false, ChartElementType.DataPoint);
+
+            foreach (var r in results)
+            {
+                if (r.ChartElementType == ChartElementType.DataPoint)
+                {
+                    var prop = r.Object as DataPoint;
+
+                    if (prop != null)
+                    {
+                        var pointX = r.ChartArea.AxisX.ValueToPixelPosition(prop.XValue);
+                        var pointY = r.ChartArea.AxisY.ValueToPixelPosition(prop.YValues[0]);
+
+                        if (Math.Abs(position.X - pointX) < 8 &&
+                            Math.Abs(position.Y - pointY) < 8)
+                        {
+                            toolTip.Show("$" + prop.YValues[0].ToString("0.##"), this.stocksChart,
+                                        position.X, position.Y - 15);
+                        }
+                    }
+                }
+            }
         }
     }
 }

@@ -21,12 +21,13 @@ namespace StockPortfolio
 
         public static string[] mostPopularCompanies = {"AAPL","MSFT","NIKE","TWTR","AMZN","FB", "TMUS", "NFLX", "RHT", "ORCL", "F", "SNE", "EA"
                                                         ,"T", "DIS", "HPQ", "ORCL", "TWX"};
-
+        private string _newsSymbol;
         public List<string> links;
         public Main_Menu()
         {
             InitializeComponent();
             InitializeStockSearchBox();
+            _newsSymbol = "TSLA";
         }
 
         private async void InitializeStockSearchBox()
@@ -39,6 +40,10 @@ namespace StockPortfolio
                 TB_Search_Stocks.AutoCompleteCustomSource = searchableSymbols;
                 TB_Search_Stocks.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
                 TB_Search_Stocks.AutoCompleteSource = AutoCompleteSource.CustomSource;
+
+                tbSearchNews.AutoCompleteCustomSource = searchableSymbols;
+                tbSearchNews.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                tbSearchNews.AutoCompleteSource = AutoCompleteSource.CustomSource;
             }
             catch(System.Net.WebException e)
             {
@@ -62,11 +67,13 @@ namespace StockPortfolio
             links = new List<string>();
             await updateMostPopularList();
             pbLoading.SizeMode = PictureBoxSizeMode.CenterImage;
-            await updateNews();
-            UrlNews1.MaximumSize = new Size(350, 0);
-            UrlNews2.MaximumSize = new Size(350, 0);
-            UrlNews3.MaximumSize = new Size(350, 0);
-            
+            await updateNews(_newsSymbol);
+            //UrlNews1.MaximumSize = new Size(550, 0);
+            //UrlNews2.MaximumSize = new Size(550, 0);
+            //UrlNews3.MaximumSize = new Size(550, 0);
+            //NewsSummary1.MaximumSize = new Size(500, 300);
+           // NewsSummary2.MaximumSize = new Size(500, 300);
+           // NewsSummary3.MaximumSize = new Size(500, 300);
         }
 
         private void BTN_Search_Stocks_Click(object sender, EventArgs e)
@@ -120,7 +127,7 @@ namespace StockPortfolio
             System.Media.SoundPlayer snd = new System.Media.SoundPlayer(str);
             snd.Play();
             await updateMostPopularList();
-            await updateNews();
+            await updateNews(_newsSymbol);
         }
 
         //vrakja symbol za vlez {ime na firma (symbol)}
@@ -154,45 +161,30 @@ namespace StockPortfolio
             Loading_Most_Popular.Show();
             Loading_Recent_News.Enabled = true;
             Loading_Recent_News.Show();
-            UrlNews1.Hide();
-            UrlNews2.Hide();
-            UrlNews3.Hide();
-
+            HideNewsLabels();
 
             lvMostPopular.Items.Clear();
-            var description = string.Format("{0, -32} {1, -15} {2, 10}", "Name", "Price", "Difference");
+            var description = string.Format("{0, -32} {1, -11} {2, -5}", "Name", "Price", "Difference");
             lvMostPopular.Items.Add(description);
-            List<MostPopularStockElement> mpc = new List<MostPopularStockElement>();
-
+            var data = await API.GetBatchQuoteData(mostPopularCompanies); //fraerski prakjame niza simboli
             try
             {
-                foreach (string symbol in mostPopularCompanies)
+                foreach (var symbol in data.Values)
                 {
-                    //API.GetQuote(symbol);
-                    if (await API.FilteredGetQuote(symbol) != null)
-                    {
-                        QuoteDto q = await API.FilteredGetQuote(symbol);
-                        MostPopularStockElement p = new MostPopularStockElement(q);
-                        mpc.Add(p);
-                    }
 
-                }
-
-                foreach (var p in mpc)
-                {
-                    if (p.calculateDifference() > 0)
-                        lvMostPopular.Items.Add(p.ToString()).ForeColor = Color.Green;
-                    else if (p.calculateDifference() < 0)
-                        lvMostPopular.Items.Add(p.ToString()).ForeColor = Color.Red;
+                    if (symbol.Quote.calculateDifference() > 0)
+                        lvMostPopular.Items.Add(symbol.Quote.ToString()).ForeColor = Color.Green;
+                    else if (symbol.Quote.calculateDifference() < 0)
+                        lvMostPopular.Items.Add(symbol.Quote.ToString()).ForeColor = Color.Red;
                     else
-                        lvMostPopular.Items.Add(p.ToString()).ForeColor = Color.Black;
+                        lvMostPopular.Items.Add(symbol.Quote.ToString()).ForeColor = Color.Black;
                 }
             }
-            catch(System.Net.WebException e)
+            catch (System.Net.WebException e)
             {
                 MessageBox.Show(e.Message);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 MessageBox.Show("Error " + e.Message);
             }
@@ -201,6 +193,17 @@ namespace StockPortfolio
             Loading_Most_Popular.Hide();
             Loading_Recent_News.Enabled = false;
             Loading_Recent_News.Hide();
+        }
+
+        private void HideNewsLabels()
+        {
+            UrlNews1.Hide();
+            UrlNews2.Hide();
+            UrlNews3.Hide();
+
+            NewsSummary1.Hide();
+            NewsSummary2.Hide();
+            NewsSummary3.Hide();
         }
 
         private void lvMostPopular_MouseDoubleClick_1(object sender, MouseEventArgs e)
@@ -224,7 +227,7 @@ namespace StockPortfolio
             hf.ShowDialog();
         }
 
-        private async Task updateNews()
+        private async Task updateNews(string symbol)
         {
             
             
@@ -232,24 +235,68 @@ namespace StockPortfolio
             UrlNews2.LinkVisited = false;
             UrlNews3.LinkVisited = false;
             links.Clear();
-            try { 
-            UrlNews1.MaximumSize = new Size(320, 0);
-            List<NewsDto> list = new List<NewsDto>();
-            list.AddRange(await API.GetNews(3));
-            foreach(var dto in list)
+            try
             {
-                links.Add(dto.Url);
+                GroupBox_Top_Today.Text = $"Recent News ({symbol})";
+                //UrlNews1.MaximumSize = new Size(320, 0);
+                List<NewsDto> list = new List<NewsDto>();
+                list.AddRange(await API.GetNews(symbol, 3));
+                foreach(var dto in list)
+                {
+                    links.Add(dto.Url);
 
-            }
-            if(list.Count>=3)
-            {
-                UrlNews1.Text = list[0].Headline;
-                UrlNews2.Text = list[1].Headline;
-                UrlNews3.Text = list[2].Headline;
-            }
-            UrlNews1.Show();
-            UrlNews2.Show();
-            UrlNews3.Show();
+                }
+                if(list.Count>=3)
+                {
+                    UrlNews1.Text = list[0].Headline;
+                    UrlNews2.Text = list[1].Headline;
+                    UrlNews3.Text = list[2].Headline;
+
+                    NewsSummary1.Text = 
+                        list[0].Summary != "No summary available." ? list[0].Summary : "       " + list[0].Summary;
+                    NewsSummary2.Text = 
+                        list[1].Summary != "No summary available." ? list[1].Summary : "       " + list[1].Summary;
+                    NewsSummary3.Text = 
+                        list[2].Summary != "No summary available." ? list[2].Summary : "       " + list[2].Summary;
+                                                                                                               
+                    UrlNews1.Show();                                                                           
+                    NewsSummary1.Show();                                                                       
+                    UrlNews2.Show();                                                                           
+                    NewsSummary2.Show();                                                                       
+                    UrlNews3.Show();                                                                           
+                    NewsSummary3.Show();                                                                       
+                }                                                                                              
+                else if (list.Count >= 2)                                                                      
+                {                                                                                              
+                    UrlNews1.Text = list[0].Headline;                                                          
+                    UrlNews2.Text = list[1].Headline;                                                          
+                                                                                                               
+                    NewsSummary1.Text = list[0].Summary != "No summary available." ? list[0].Summary : "       " + list[0].Summary;
+                    NewsSummary2.Text = list[1].Summary != "No summary available." ? list[2].Summary : "       " + list[0].Summary;
+
+                    label2.Hide();
+                    UrlNews1.Show();
+                    NewsSummary1.Show();
+                    UrlNews2.Show();
+                    NewsSummary2.Show();
+                    UrlNews3.Hide();
+                    NewsSummary3.Hide();
+                }
+                else if (list.Count == 1)
+                {
+                    UrlNews1.Text = list[0].Headline;
+                    NewsSummary1.Text = list[0].Summary != "No summary available." ? list[0].Summary : "       " + list[0].Summary;
+
+                    label2.Hide();
+                    label1.Hide();
+                    UrlNews1.Show();
+                    NewsSummary1.Show();
+                    UrlNews2.Hide();
+                    NewsSummary2.Hide();
+                    UrlNews3.Hide();
+                    NewsSummary3.Hide();
+                }
+
             }
             catch (System.Net.WebException e)
             {
@@ -260,6 +307,8 @@ namespace StockPortfolio
                 MessageBox.Show("Error " + e.Message);
             }
         }
+
+
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {            
             Application.Exit();
@@ -291,5 +340,33 @@ namespace StockPortfolio
                 Process.Start(links[2]);
             }
         }
+
+        private async void btnSearchNews_Click(object sender, EventArgs e)
+        {
+            var searchString = tbSearchNews.Text;
+            try
+            {
+                if (string.IsNullOrWhiteSpace(searchString) || await API.GetCompanyInfo(Main_Menu.getSymbol(searchString)) == null)
+                {
+                    newsSearchErrorProvider.SetError(tbSearchNews, "Please enter a valid search");
+
+                }
+                else
+                {
+                    _newsSymbol = Main_Menu.getSymbol(searchString);
+                    await updateNews(_newsSymbol);
+                }
+            }
+            catch(System.Net.WebException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Something bad happened");
+            }
+            
+        }
+
     }
 }

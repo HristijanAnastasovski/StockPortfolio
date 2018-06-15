@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace StockPortfolio.IEX_API.DTOs
 {
+    
     public class QuoteDto
     {
         [JsonProperty("symbol")]
@@ -129,4 +130,5 @@ namespace StockPortfolio.IEX_API.DTOs
         [JsonProperty("ytdChange")]
         public double YtdChange { get; set; }
     }
+
 }

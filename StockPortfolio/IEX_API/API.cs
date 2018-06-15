@@ -65,50 +65,6 @@ namespace StockPortfolio.IEX_API
             }
         }
 
-        public static IReadOnlyDictionary<DateTimeOffset, HistoricalDataDto> GetHistoricalDataSync(string symbol)
-        {
-            var API_PATH = $"https://api.iextrading.com/1.0/stock/{symbol}/chart/1m";
-            API api = new API();
-
-            try
-            {
-                var response = api.CallAPISync(API_PATH);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    var historicalDataList = response.Content.ReadAsAsync<List<HistoricalDataDto>>().GetAwaiter().GetResult();
-                    Dictionary<DateTimeOffset, HistoricalDataDto> historicalData = new Dictionary<DateTimeOffset, HistoricalDataDto>();
-                    foreach (var d in historicalDataList)
-                    {
-                        if (d != null)
-                        {
-                            Debug.WriteLine("Date: " + d.Date);
-                            Debug.WriteLine("Open: " + d.Open);
-                            Debug.WriteLine("Close: " + d.Close);
-                            Debug.WriteLine("Low: " + d.Low);
-                            Debug.WriteLine("High: " + d.High);
-                            Debug.WriteLine("Change: " + d.Change);
-                            Debug.WriteLine("Change Percentage: " + d.ChangePercent);
-
-                            // stavame se vo recnik kade shto KEY e datumot a VALUE e objekt od HistoricalDataDto so site informacii za toj datum
-                            HistoricalDataDto data = new HistoricalDataDto(d.Open, d.High, d.Low, d.Close, d.Volume, d.UnadjustedVolume,
-                                d.Change, d.ChangePercent, d.Vwap, d.Label, d.ChangeOverTime);
-                            historicalData[d.Date] = data;
-
-
-                        }
-                    }
-                    return historicalData;
-                }
-
-                return null;
-            }
-            catch(System.Net.WebException e)
-            {
-                throw e;
-            }
-        }
-
         // gi vrakja site aktivni simboli
         public static async Task<string[]> GetSymbols()
         {
@@ -138,9 +94,9 @@ namespace StockPortfolio.IEX_API
         }
 
         // @newsCount -> posledni N vesti za vrakjanje
-        public static async Task<IEnumerable<NewsDto>> GetNews(int newsCount)
+        public static async Task<IEnumerable<NewsDto>> GetNews(string symbol, int newsCount)
         {
-            var API_PATH = $"https://api.iextrading.com/1.0/stock/market/news/last/{newsCount}";
+            var API_PATH = $"https://api.iextrading.com/1.0/stock/{symbol}/news/last/{newsCount}";
             API api = new API();
             try
             {
@@ -206,6 +162,53 @@ namespace StockPortfolio.IEX_API
             }
         }
 
+        public static async Task<FinancialDataDto> GetFinancialData(string symbol)
+        {
+            var API_PATH = $"https://api.iextrading.com/1.0/stock/{symbol}/stats?filter=beta,revenue,marketcap,revenuePerEmployee";
+            API api = new API();
+
+            try
+            {
+                var response = await api.CallAPI(API_PATH);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var data = response.Content.ReadAsAsync<FinancialDataDto>().GetAwaiter().GetResult();
+                    return data;
+                }
+                return null;
+            }
+            catch(System.Net.WebException ex)
+            {
+                throw ex;
+            }
+        }
+
+        public static async Task<Dictionary<string, BatchQuoteDto>> GetBatchQuoteData(string[] symbolsArray)
+        {
+            var symbols = string.Join(",", symbolsArray.Select(item => item ));
+            var API_PATH = $"https://api.iextrading.com/1.0/stock/market/batch?symbols={symbols}&types=quote";
+            API api = new API();
+
+            try
+            {
+                var response = await api.CallAPI(API_PATH);
+
+                if (response.IsSuccessStatusCode)
+                {
+
+                    var json = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                    var data = BatchQuoteDto.FromJson(json);
+                    return data;
+                }
+                return null;
+            }
+            catch (System.Net.WebException ex)
+            {
+                throw ex;
+            }
+        }
+
         public static async Task<QuoteDto> FilteredGetQuote(string symbol)
         {
 
@@ -223,8 +226,6 @@ namespace StockPortfolio.IEX_API
                     var quote = JsonConvert.DeserializeObject<QuoteDto>(json.Result, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
                     if (quote != null)
                     {
-                        Debug.WriteLine("Company Name: " + quote.CompanyName);
-                        Debug.WriteLine("Open: " + quote.Open);
                         return quote;
                     }
                 }
@@ -284,22 +285,6 @@ namespace StockPortfolio.IEX_API
             }        
         }
 
-        private HttpResponseMessage CallAPISync(string API_PATH)
-        {
-            if (API.hasInternet() == false)
-                throw new System.Net.WebException("No internet connection detected, please try again later");
-
-            using (HttpClient client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-
-                client.BaseAddress = new Uri(API_PATH);
-                HttpResponseMessage response = client.GetAsync(API_PATH).GetAwaiter().GetResult();
-
-                return response;
-            }
-        }
 
         [DllImport("wininet.dll")]
         private extern static bool InternetGetConnectedState(out int Description, int ReservedValue);
