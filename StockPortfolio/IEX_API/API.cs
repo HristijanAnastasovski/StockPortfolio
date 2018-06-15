@@ -268,7 +268,13 @@ namespace StockPortfolio.IEX_API
         private async Task<HttpResponseMessage> CallAPI(string API_PATH)
         {
             if (API.hasInternet() == false)
-                throw new System.Net.WebException("No internet connection detected, please try again later");
+            {
+                // Ja otvara formata za network check
+                Network_Check_Form ncf = new Network_Check_Form();
+                ncf.ShowDialog();
+
+                // throw new System.Net.WebException("No internet connection detected, please try again later");
+            }
             try
             {
                 using (HttpClient client = new HttpClient())

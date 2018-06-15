@@ -74,7 +74,6 @@ namespace StockPortfolio
                         Stream s = Properties.Resources.applause;
                         System.Media.SoundPlayer snds = new System.Media.SoundPlayer(str);
                         snd.Play();
-
                     }
                 }
                 else
@@ -87,7 +86,6 @@ namespace StockPortfolio
                         snd.Play();
                     }
                 }
-
             }
             else
             {
@@ -107,14 +105,16 @@ namespace StockPortfolio
                     errorProviderBuyingPrice.Clear();
                 }
             }
-            
-
         }
 
         private void tbCompany_Validated(object sender, EventArgs e)
         {
             string company = tbCompany.Text;
-            if (string.IsNullOrWhiteSpace(company) || IEX_API.API.GetQuote(Main_Menu.getSymbol(company)) == null)
+            // dodadov ako e vneseno
+            // null da ne frla exception
+            // treba i za neso drugo sto ne e Firma
+            // da ne go frla toj gnasniot exception
+            if (string.IsNullOrWhiteSpace(company) || IEX_API.API.GetQuote(Main_Menu.getSymbol(company)) == null || company == "null")
             {
                 errorProvider_company.SetError(tbCompany, "Please enter a valid search");
                 companyError = true;

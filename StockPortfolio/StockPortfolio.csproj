@@ -83,6 +83,12 @@
     <Compile Include="IEX_API\DTOs\HistoricalDataDto.cs" />
     <Compile Include="IEX_API\DTOs\QuoteDto.cs" />
     <Compile Include="MostPopularStockElement.cs" />
+    <Compile Include="Network_Check_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Network_Check_Form.Designer.cs">
+      <DependentUpon>Network_Check_Form.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Search_Result_Form.cs">
@@ -111,6 +117,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Main_Menu.resx">
       <DependentUpon>Main_Menu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Network_Check_Form.resx">
+      <DependentUpon>Network_Check_Form.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

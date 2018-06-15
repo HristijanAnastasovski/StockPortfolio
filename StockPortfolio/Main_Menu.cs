@@ -18,11 +18,11 @@ namespace StockPortfolio
     public partial class Main_Menu : Form
     {
         public string search;
-
         public static string[] mostPopularCompanies = {"AAPL","MSFT","NIKE","TWTR","AMZN","FB", "TMUS", "NFLX", "RHT", "ORCL", "F", "SNE", "EA"
                                                         ,"T", "DIS", "HPQ", "ORCL", "TWX"};
         private string _newsSymbol;
         public List<string> links;
+
         public Main_Menu()
         {
             InitializeComponent();
@@ -57,6 +57,9 @@ namespace StockPortfolio
 
         private async void Form1_Load(object sender, EventArgs e)
         {
+            // Proverva dali ima internet
+            // na start na programata
+            API.hasInternet();
 
             pbLoading.Hide();
             Welcome_Form welcome_Form = new Welcome_Form();
@@ -68,10 +71,11 @@ namespace StockPortfolio
             await updateMostPopularList();
             pbLoading.SizeMode = PictureBoxSizeMode.CenterImage;
             await updateNews(_newsSymbol);
-            //UrlNews1.MaximumSize = new Size(550, 0);
-            //UrlNews2.MaximumSize = new Size(550, 0);
-            //UrlNews3.MaximumSize = new Size(550, 0);
-            //NewsSummary1.MaximumSize = new Size(500, 300);
+
+           // UrlNews1.MaximumSize = new Size(550, 0);
+           // UrlNews2.MaximumSize = new Size(550, 0);
+           // UrlNews3.MaximumSize = new Size(550, 0);
+           // NewsSummary1.MaximumSize = new Size(500, 300);
            // NewsSummary2.MaximumSize = new Size(500, 300);
            // NewsSummary3.MaximumSize = new Size(500, 300);
         }
@@ -88,7 +92,6 @@ namespace StockPortfolio
                 if (string.IsNullOrWhiteSpace(search) || API.GetQuote(getSymbol(search)) == null || API.GetCompanyInfo(Main_Menu.getSymbol(search)) == null)
                 {
                     ErrorProvider_Search_Error.SetError(TB_Search_Stocks, "Please enter a valid search");
-
                 }
                 else
                 {
@@ -99,10 +102,7 @@ namespace StockPortfolio
 
                     pbLoading.Hide();
                     srf.ShowDialog();
-
-
                 }
-
             }
             catch(System.Net.WebException ex)
             {
@@ -136,13 +136,19 @@ namespace StockPortfolio
             string pattern = @"\(([^()]+)\)";
             string input = s;
             string [] array = Regex.Split(input, pattern);
+
             if (array.Length == 5)
+            {
                 return array[3];
+            }
             else if (array.Length == 3)
+            {
                 return array[1];
+            }
             else
+            {
                 return null;
-            
+            }
         }
 
         private void btnCalculator_Click(object sender, EventArgs e)
@@ -189,6 +195,7 @@ namespace StockPortfolio
             {
                 MessageBox.Show("Error " + e.Message);
             }
+
             BTN_Refresh.Enabled = true;
             Loading_Most_Popular.Enabled = false;
             Loading_Most_Popular.Hide();
@@ -233,8 +240,6 @@ namespace StockPortfolio
 
         private async Task updateNews(string symbol)
         {
-            
-            
             UrlNews1.LinkVisited = false;
             UrlNews2.LinkVisited = false;
             UrlNews3.LinkVisited = false;
@@ -245,11 +250,12 @@ namespace StockPortfolio
                 //UrlNews1.MaximumSize = new Size(320, 0);
                 List<NewsDto> list = new List<NewsDto>();
                 list.AddRange(await API.GetNews(symbol, 3));
+
                 foreach(var dto in list)
                 {
                     links.Add(dto.Url);
-
                 }
+
                 if (list.Count ==3)
                 {
                     UrlNews1.Text = list[0].Headline;
@@ -300,7 +306,6 @@ namespace StockPortfolio
                     UrlNews3.Hide();
                     NewsSummary3.Hide();
                 }
-
             }
             catch (System.Net.WebException e)
             {
@@ -311,7 +316,6 @@ namespace StockPortfolio
                 MessageBox.Show("Error " + e.Message);
             }
         }
-
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {            

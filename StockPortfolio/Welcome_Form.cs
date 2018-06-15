@@ -19,8 +19,6 @@ namespace StockPortfolio
         public Welcome_Form()
         {
             InitializeComponent();
-
-            
         }
 
         private void Welcome_Form_Load(object sender, EventArgs e)
@@ -30,7 +28,6 @@ namespace StockPortfolio
             timer1.Enabled = true;
             timer1.Start();
             pbLoading.Enabled = true;
-            
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -39,7 +36,9 @@ namespace StockPortfolio
             LB_timeleft.Text += ".";
             //LB_timeleft.Text = String.Format($"Continuing in {time}");
             if (time > 0)
+            {
                 pbLoading.Value++;
+            }
                 
             if (time <= 0)
             {
