@@ -186,7 +186,7 @@ namespace StockPortfolio.IEX_API
 
         public static async Task<Dictionary<string, BatchQuoteDto>> GetBatchQuoteData(string[] symbolsArray)
         {
-            var symbols = string.Join(",", symbolsArray.Select(item => item ));
+            var symbols = string.Join(",", symbolsArray.Select(item => item));
             var API_PATH = $"https://api.iextrading.com/1.0/stock/market/batch?symbols={symbols}&types=quote";
             API api = new API();
 
