@@ -98,10 +98,10 @@ namespace StockPortfolio
 
                     LB_PE_RATIO.Text = qd.PeRatio.ToString() != null ? $"{qd.PeRatio}" : "No Information";
 
-                    LB_BETA.Text = fd.Beta.ToString() != null ?  $"{fd.Beta}" : "No Information";
-                    LB_REVENUE.Text = fd.Revenue.ToString() != null ? $"{fd.Revenue.ToString("#,##0,,M")}" : "No Information";
-                    LB_REV_PER_EMPLOYEE.Text = fd.RevenuePerEmployee.ToString() != null ? $"{fd.RevenuePerEmployee.ToString("#,##0,K")}" : "No Information";
-                    LB_MARKETCAP.Text = fd.Marketcap.ToString() != null ? $"{fd.Marketcap.ToString("#,##0,,M")}" : "No Information";
+                    LB_BETA.Text = fd.Beta != 0 ?  $"{fd.Beta}" : "No Information";
+                    LB_REVENUE.Text = fd.Revenue != 0 ? $"{fd.Revenue.ToString("#,##0,,M")}" : "No Information";
+                    LB_REV_PER_EMPLOYEE.Text = fd.RevenuePerEmployee!= 0 ? $"{fd.RevenuePerEmployee.ToString("#,##0,K")}" : "No Information";
+                    LB_MARKETCAP.Text = fd.Marketcap != 0 ? $"{fd.Marketcap.ToString("#,##0,,M")}" : "No Information";
                 }
             }
             catch(System.Net.WebException e)

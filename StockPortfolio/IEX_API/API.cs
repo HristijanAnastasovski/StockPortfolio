@@ -173,7 +173,9 @@ namespace StockPortfolio.IEX_API
 
                 if (response.IsSuccessStatusCode)
                 {
-                    var data = response.Content.ReadAsAsync<FinancialDataDto>().GetAwaiter().GetResult();
+                    var settings = new JsonSerializerSettings { Error = (se, ev) => ev.ErrorContext.Handled = true };
+                    var json = await response.Content.ReadAsStringAsync();
+                    var data = JsonConvert.DeserializeObject<FinancialDataDto>(json, settings);
                     return data;
                 }
                 return null;

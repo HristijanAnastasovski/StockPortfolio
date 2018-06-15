@@ -250,7 +250,7 @@ namespace StockPortfolio
                     links.Add(dto.Url);
 
                 }
-                if(list.Count>=3)
+                if (list.Count ==3)
                 {
                     UrlNews1.Text = list[0].Headline;
                     UrlNews2.Text = list[1].Headline;
@@ -272,13 +272,13 @@ namespace StockPortfolio
                     UrlNews3.Show();                                                                           
                     NewsSummary3.Show();                                                                       
                 }                                                                                              
-                else if (list.Count >= 2)                                                                      
+                else if (list.Count == 2)                                                                      
                 {                                                                                              
                     UrlNews1.Text = list[0].Headline;                                                          
                     UrlNews2.Text = list[1].Headline;                                                          
                                                                                                                
                     NewsSummary1.Text = list[0].Summary != "No summary available." ? list[0].Summary : "       " + list[0].Summary;
-                    NewsSummary2.Text = list[1].Summary != "No summary available." ? list[2].Summary : "       " + list[0].Summary;
+                    NewsSummary2.Text = list[1].Summary != "No summary available." ? list[1].Summary : "       " + list[0].Summary;
 
                     label1.Show();
                     UrlNews1.Show();
