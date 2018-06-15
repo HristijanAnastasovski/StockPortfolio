@@ -38,6 +38,7 @@
             this.Loading_Most_Popular = new System.Windows.Forms.PictureBox();
             this.lvMostPopular = new System.Windows.Forms.ListView();
             this.GroupBox_Top_Today = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.NewsSummary3 = new System.Windows.Forms.Label();
             this.NewsSummary2 = new System.Windows.Forms.Label();
@@ -58,7 +59,6 @@
             this.tbSearchNews = new System.Windows.Forms.TextBox();
             this.btnSearchNews = new System.Windows.Forms.Button();
             this.newsSearchErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.label2 = new System.Windows.Forms.Label();
             this.GroupBox_Search.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ErrorProvider_Search_Error)).BeginInit();
             this.GroupBox_Top_All_Time.SuspendLayout();
@@ -159,6 +159,14 @@
             this.GroupBox_Top_Today.TabStop = false;
             this.GroupBox_Top_Today.Text = "Recent News";
             // 
+            // label2
+            // 
+            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label2.Location = new System.Drawing.Point(7, 251);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(558, 2);
+            this.label2.TabIndex = 16;
+            // 
             // label1
             // 
             this.label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -248,7 +256,7 @@
             this.BTN_Refresh.ForeColor = System.Drawing.SystemColors.ControlText;
             this.BTN_Refresh.Location = new System.Drawing.Point(228, 39);
             this.BTN_Refresh.Name = "BTN_Refresh";
-            this.BTN_Refresh.Size = new System.Drawing.Size(124, 45);
+            this.BTN_Refresh.Size = new System.Drawing.Size(102, 45);
             this.BTN_Refresh.TabIndex = 8;
             this.BTN_Refresh.Text = "Refresh Data";
             this.BTN_Refresh.UseVisualStyleBackColor = true;
@@ -339,9 +347,9 @@
             // 
             // btnSearchNews
             // 
-            this.btnSearchNews.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSearchNews.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.4F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSearchNews.ForeColor = System.Drawing.Color.Black;
-            this.btnSearchNews.Location = new System.Drawing.Point(902, 480);
+            this.btnSearchNews.Location = new System.Drawing.Point(921, 480);
             this.btnSearchNews.Name = "btnSearchNews";
             this.btnSearchNews.Size = new System.Drawing.Size(124, 22);
             this.btnSearchNews.TabIndex = 12;
@@ -352,14 +360,6 @@
             // newsSearchErrorProvider
             // 
             this.newsSearchErrorProvider.ContainerControl = this;
-            // 
-            // label2
-            // 
-            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label2.Location = new System.Drawing.Point(7, 251);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(558, 2);
-            this.label2.TabIndex = 16;
             // 
             // Main_Menu
             // 

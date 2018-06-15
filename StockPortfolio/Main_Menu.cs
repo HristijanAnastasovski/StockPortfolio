@@ -347,16 +347,20 @@ namespace StockPortfolio
 
         private async void btnSearchNews_Click(object sender, EventArgs e)
         {
+            System.IO.Stream str = Properties.Resources.Windows_Navigation_Start;
+            System.Media.SoundPlayer snd = new System.Media.SoundPlayer(str);
+            snd.Play();
+
             var searchString = tbSearchNews.Text;
             try
             {
                 if (string.IsNullOrWhiteSpace(searchString) || await API.GetCompanyInfo(Main_Menu.getSymbol(searchString)) == null)
                 {
                     newsSearchErrorProvider.SetError(tbSearchNews, "Please enter a valid search");
-
                 }
                 else
                 {
+                    newsSearchErrorProvider.Clear();
                     _newsSymbol = Main_Menu.getSymbol(searchString);
                     await updateNews(_newsSymbol);
                 }
@@ -369,8 +373,6 @@ namespace StockPortfolio
             {
                 MessageBox.Show("Something bad happened");
             }
-            
         }
-
     }
 }

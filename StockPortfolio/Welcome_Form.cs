@@ -26,7 +26,7 @@ namespace StockPortfolio
         private void Welcome_Form_Load(object sender, EventArgs e)
         {
             this.ControlBox = false;
-            LB_timeleft.Text = "Loading";
+            LB_timeleft.Text = "Connecting";
             timer1.Enabled = true;
             timer1.Start();
             pbLoading.Enabled = true;

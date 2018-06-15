@@ -82,3 +82,22 @@ C:\Users\User\source\repos\StockPortfolio\StockPortfolio\obj\Debug\StockPortfoli
 C:\Users\User\source\repos\StockPortfolio\StockPortfolio\obj\Debug\StockPortfolio.pdb
 C:\Users\User\source\repos\StockPortfolio\StockPortfolio\obj\Debug\StockPortfolio.StockCalculator.resources
 C:\Users\Bojan Barisic\source\repos\StockPortfolio\StockPortfolio\obj\Debug\StockPortfolio.StockCalculator.resources
+C:\Users\Bodan\Source\Repos\StockPortfolio2\StockPortfolio\bin\Debug\StockPortfolio.exe.config
+C:\Users\Bodan\Source\Repos\StockPortfolio2\StockPortfolio\bin\Debug\StockPortfolio.exe
+C:\Users\Bodan\Source\Repos\StockPortfolio2\StockPortfolio\bin\Debug\StockPortfolio.pdb
+C:\Users\Bodan\Source\Repos\StockPortfolio2\StockPortfolio\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Bodan\Source\Repos\StockPortfolio2\StockPortfolio\bin\Debug\System.Net.Http.Formatting.dll
+C:\Users\Bodan\Source\Repos\StockPortfolio2\StockPortfolio\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Bodan\Source\Repos\StockPortfolio2\StockPortfolio\bin\Debug\System.Net.Http.Formatting.xml
+C:\Users\Bodan\Source\Repos\StockPortfolio2\StockPortfolio\obj\Debug\StockPortfolio.About_Form.resources
+C:\Users\Bodan\Source\Repos\StockPortfolio2\StockPortfolio\obj\Debug\StockPortfolio.Help_Form.resources
+C:\Users\Bodan\Source\Repos\StockPortfolio2\StockPortfolio\obj\Debug\StockPortfolio.Main_Menu.resources
+C:\Users\Bodan\Source\Repos\StockPortfolio2\StockPortfolio\obj\Debug\StockPortfolio.Properties.Resources.resources
+C:\Users\Bodan\Source\Repos\StockPortfolio2\StockPortfolio\obj\Debug\StockPortfolio.Search_Result_Form.resources
+C:\Users\Bodan\Source\Repos\StockPortfolio2\StockPortfolio\obj\Debug\StockPortfolio.StockCalculator.resources
+C:\Users\Bodan\Source\Repos\StockPortfolio2\StockPortfolio\obj\Debug\StockPortfolio.Welcome_Form.resources
+C:\Users\Bodan\Source\Repos\StockPortfolio2\StockPortfolio\obj\Debug\StockPortfolio.csproj.GenerateResource.Cache
+C:\Users\Bodan\Source\Repos\StockPortfolio2\StockPortfolio\obj\Debug\StockPortfolio.csproj.CoreCompileInputs.cache
+C:\Users\Bodan\Source\Repos\StockPortfolio2\StockPortfolio\obj\Debug\StockPortfolio.exe
+C:\Users\Bodan\Source\Repos\StockPortfolio2\StockPortfolio\obj\Debug\StockPortfolio.pdb
+C:\Users\Bodan\Source\Repos\StockPortfolio2\StockPortfolio\obj\Debug\StockPortfolio.csprojResolveAssemblyReference.cache

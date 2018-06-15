@@ -51,11 +51,11 @@
             // 
             this.LB_timeleft.AutoSize = true;
             this.LB_timeleft.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_timeleft.Location = new System.Drawing.Point(87, 40);
+            this.LB_timeleft.Location = new System.Drawing.Point(74, 40);
             this.LB_timeleft.Name = "LB_timeleft";
-            this.LB_timeleft.Size = new System.Drawing.Size(58, 13);
+            this.LB_timeleft.Size = new System.Drawing.Size(80, 13);
             this.LB_timeleft.TabIndex = 1;
-            this.LB_timeleft.Text = "*timeleft*";
+            this.LB_timeleft.Text = "*connecting*";
             this.LB_timeleft.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // timer1
@@ -76,10 +76,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(237, 126);
+            this.ClientSize = new System.Drawing.Size(237, 110);
             this.Controls.Add(this.pbLoading);
             this.Controls.Add(this.LB_timeleft);
             this.Controls.Add(this.LB_Welcome);
+            this.Cursor = System.Windows.Forms.Cursors.WaitCursor;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
