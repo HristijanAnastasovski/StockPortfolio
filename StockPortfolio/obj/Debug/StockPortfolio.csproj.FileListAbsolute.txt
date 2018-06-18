@@ -120,3 +120,4 @@ C:\Users\Bodan\Source\Repos\StockPortfolio3\StockPortfolio\obj\Debug\StockPortfo
 C:\Users\Bodan\Source\Repos\StockPortfolio3\StockPortfolio\obj\Debug\StockPortfolio.csproj.CoreCompileInputs.cache
 C:\Users\Bodan\Source\Repos\StockPortfolio3\StockPortfolio\obj\Debug\StockPortfolio.exe
 C:\Users\Bodan\Source\Repos\StockPortfolio3\StockPortfolio\obj\Debug\StockPortfolio.pdb
+C:\Users\Bodan\Source\Repos\StockPortfolio3\StockPortfolio\obj\Debug\StockPortfolio.csprojResolveAssemblyReference.cache
