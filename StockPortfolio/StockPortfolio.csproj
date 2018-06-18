@@ -62,12 +62,6 @@
     <Compile Include="About_Form.Designer.cs">
       <DependentUpon>About_Form.cs</DependentUpon>
     </Compile>
-    <Compile Include="Help_Form.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Help_Form.Designer.cs">
-      <DependentUpon>Help_Form.cs</DependentUpon>
-    </Compile>
     <Compile Include="IEX_API\DTOs\BatchQuoteDto.cs" />
     <Compile Include="IEX_API\DTOs\CompanyInfoDto.cs" />
     <Compile Include="IEX_API\DTOs\FinancialDataDto.cs" />
@@ -111,9 +105,6 @@
     </Compile>
     <EmbeddedResource Include="About_Form.resx">
       <DependentUpon>About_Form.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Help_Form.resx">
-      <DependentUpon>Help_Form.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main_Menu.resx">
       <DependentUpon>Main_Menu.cs</DependentUpon>

@@ -236,12 +236,6 @@ namespace StockPortfolio
             af.ShowDialog();
         }
 
-        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Help_Form hf = new Help_Form();
-            hf.ShowDialog();
-        }
-
         private async Task updateNews(string symbol)
         {
             UrlNews1.LinkVisited = false;
