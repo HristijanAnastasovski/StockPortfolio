@@ -23,11 +23,14 @@ namespace StockPortfolio
         private string _newsSymbol;
         public List<string> links;
 
+        public static HashSet<string> searchableNames { get; set; }
         public Main_Menu()
         {
             InitializeComponent();
             InitializeStockSearchBox();
             _newsSymbol = "TSLA";
+            searchableNames=new HashSet<string>();
+
         }
 
         private async void InitializeStockSearchBox()
@@ -37,10 +40,11 @@ namespace StockPortfolio
             {
                 AutoCompleteStringCollection searchableSymbols = new AutoCompleteStringCollection();
                 searchableSymbols.AddRange(await API.GetSymbols());
+                searchableNames.UnionWith(await API.GetSymbols());
                 TB_Search_Stocks.AutoCompleteCustomSource = searchableSymbols;
                 TB_Search_Stocks.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
                 TB_Search_Stocks.AutoCompleteSource = AutoCompleteSource.CustomSource;
-
+                
                 tbSearchNews.AutoCompleteCustomSource = searchableSymbols;
                 tbSearchNews.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
                 tbSearchNews.AutoCompleteSource = AutoCompleteSource.CustomSource;
@@ -89,7 +93,7 @@ namespace StockPortfolio
 
             try
             {
-                if (string.IsNullOrWhiteSpace(search) || API.GetQuote(getSymbol(search)) == null || API.GetCompanyInfo(Main_Menu.getSymbol(search)) == null)
+                if (!searchableNames.Contains(search))
                 {
                     ErrorProvider_Search_Error.SetError(TB_Search_Stocks, "Please enter a valid search");
                 }
@@ -358,7 +362,7 @@ namespace StockPortfolio
             var searchString = tbSearchNews.Text;
             try
             {
-                if (string.IsNullOrWhiteSpace(searchString) || await API.GetCompanyInfo(Main_Menu.getSymbol(searchString)) == null)
+                if (!Main_Menu.searchableNames.Contains(searchString))
                 {
                     newsSearchErrorProvider.SetError(tbSearchNews, "Please enter a valid search");
                 }
@@ -378,5 +382,7 @@ namespace StockPortfolio
                 MessageBox.Show("Something bad happened");
             }
         }
+
+        
     }
 }

@@ -101,3 +101,4 @@ C:\Users\Bodan\Source\Repos\StockPortfolio2\StockPortfolio\obj\Debug\StockPortfo
 C:\Users\Bodan\Source\Repos\StockPortfolio2\StockPortfolio\obj\Debug\StockPortfolio.exe
 C:\Users\Bodan\Source\Repos\StockPortfolio2\StockPortfolio\obj\Debug\StockPortfolio.pdb
 C:\Users\Bodan\Source\Repos\StockPortfolio2\StockPortfolio\obj\Debug\StockPortfolio.Network_Check_Form.resources
+C:\Users\User\source\repos\StockPortfolio\StockPortfolio\obj\Debug\StockPortfolio.Network_Check_Form.resources

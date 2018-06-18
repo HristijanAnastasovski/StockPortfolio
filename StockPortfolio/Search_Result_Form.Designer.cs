@@ -114,7 +114,7 @@
             // 
             // BTN_Search_Again
             // 
-            this.BTN_Search_Again.Location = new System.Drawing.Point(224, 32);
+            this.BTN_Search_Again.Location = new System.Drawing.Point(242, 33);
             this.BTN_Search_Again.Margin = new System.Windows.Forms.Padding(4);
             this.BTN_Search_Again.Name = "BTN_Search_Again";
             this.BTN_Search_Again.Size = new System.Drawing.Size(76, 30);
@@ -288,7 +288,7 @@
             this.SearchAgain.Controls.Add(this.pbLoading);
             this.SearchAgain.Location = new System.Drawing.Point(701, 19);
             this.SearchAgain.Name = "SearchAgain";
-            this.SearchAgain.Size = new System.Drawing.Size(375, 90);
+            this.SearchAgain.Size = new System.Drawing.Size(392, 90);
             this.SearchAgain.TabIndex = 20;
             this.SearchAgain.TabStop = false;
             this.SearchAgain.Text = "Search for stocks";
@@ -297,7 +297,7 @@
             // 
             this.pbLoading.Enabled = false;
             this.pbLoading.Image = global::StockPortfolio.Properties.Resources.Loading_icon21;
-            this.pbLoading.Location = new System.Drawing.Point(307, 22);
+            this.pbLoading.Location = new System.Drawing.Point(325, 22);
             this.pbLoading.Name = "pbLoading";
             this.pbLoading.Size = new System.Drawing.Size(50, 46);
             this.pbLoading.TabIndex = 21;

@@ -15,6 +15,7 @@ namespace StockPortfolio
     public partial class Search_Result_Form : Form
     {
         public String searchString { get; set; }
+        
 
         public Search_Result_Form()
         {
@@ -22,6 +23,7 @@ namespace StockPortfolio
             InitializeStockSearchBox();
             pbLoading.SizeMode = PictureBoxSizeMode.CenterImage;
             pbLoading.Hide();
+            
         }
 
         private async void Search_Result_Form_Load(object sender, EventArgs e)
@@ -38,6 +40,7 @@ namespace StockPortfolio
                 //TB_Search_Stocks.CharacterCasing = CharacterCasing.Upper;
                 AutoCompleteStringCollection searchableSymbols = new AutoCompleteStringCollection();
                 searchableSymbols.AddRange(await IEX_API.API.GetSymbols());
+                
                 TB_Search_Again.AutoCompleteCustomSource = searchableSymbols;
                 TB_Search_Again.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
                 TB_Search_Again.AutoCompleteSource = AutoCompleteSource.CustomSource;
@@ -127,8 +130,7 @@ namespace StockPortfolio
                 pbLoading.Show();
                 pbLoading.Enabled = true;
                 string search = TB_Search_Again.Text;
-                if (string.IsNullOrWhiteSpace(search) || await IEX_API.API.GetQuote(Main_Menu.getSymbol(search)) == null
-                    || await IEX_API.API.GetCompanyInfo(Main_Menu.getSymbol(search)) == null)
+                if (!Main_Menu.searchableNames.Contains(search))
                 {
                     ErrorProvider_Search_Error.SetError(TB_Search_Again, "Please enter a valid search");
                 }

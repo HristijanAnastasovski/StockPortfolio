@@ -27,6 +27,7 @@ namespace StockPortfolio
             voiceEnabled = true;
             InitializeSearchBox();
             lblMessage.Text = "";
+
         }
 
         private async void InitializeSearchBox()
@@ -54,7 +55,7 @@ namespace StockPortfolio
             System.IO.Stream str = Properties.Resources.Windows_Navigation_Start;
             System.Media.SoundPlayer snd = new System.Media.SoundPlayer(str);
             snd.Play();
-            if (!companyError && !numberError && !priceError && !string.IsNullOrWhiteSpace(tbNumberBought.Text) && !string.IsNullOrWhiteSpace(tbPrice.Text))
+            if (!companyError && !numberError && !priceError ) 
             {
                 string company = tbCompany.Text;
                 IEX_API.DTOs.QuoteDto qd = await IEX_API.API.GetQuote(Main_Menu.getSymbol(company));
@@ -72,8 +73,8 @@ namespace StockPortfolio
                     if (voiceEnabled)
                     {
                         Stream s = Properties.Resources.applause;
-                        System.Media.SoundPlayer snds = new System.Media.SoundPlayer(str);
-                        snd.Play();
+                        System.Media.SoundPlayer snds = new System.Media.SoundPlayer(s);
+                        snds.Play();
                     }
                 }
                 else
@@ -82,13 +83,21 @@ namespace StockPortfolio
                     if (voiceEnabled)
                     {
                         Stream strs = Properties.Resources.sadTrombone;
-                        System.Media.SoundPlayer snds = new System.Media.SoundPlayer(str);
-                        snd.Play();
+                        System.Media.SoundPlayer snds = new System.Media.SoundPlayer(strs);
+                        snds.Play();
                     }
                 }
             }
-            else
+            /*else
             {
+                if(!Main_Menu.searchableNames.Contains(tbCompany.Text))
+                {
+                    errorProvider_company.SetError(tbCompany, "Please enter a valid name");
+                }
+                else
+                {
+                    errorProvider_company.Clear();
+                }
                 if (String.IsNullOrWhiteSpace(tbPrice.Text) && String.IsNullOrWhiteSpace(tbNumberBought.Text))
                 {
                     errorProviderBuyingPrice.SetError(tbPrice, "Please enter a valid number");
@@ -104,7 +113,7 @@ namespace StockPortfolio
                     errorProviderNumberStocks.SetError(tbNumberBought, "Please enter a valid number");
                     errorProviderBuyingPrice.Clear();
                 }
-            }
+            }*/
         }
 
         private void tbCompany_Validated(object sender, EventArgs e)
@@ -114,7 +123,7 @@ namespace StockPortfolio
             // null da ne frla exception
             // treba i za neso drugo sto ne e Firma
             // da ne go frla toj gnasniot exception
-            if (string.IsNullOrWhiteSpace(company) || IEX_API.API.GetQuote(Main_Menu.getSymbol(company)) == null || company == "null")
+            if (!Main_Menu.searchableNames.Contains(company))
             {
                 errorProvider_company.SetError(tbCompany, "Please enter a valid search");
                 companyError = true;

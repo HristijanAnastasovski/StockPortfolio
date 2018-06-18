@@ -344,6 +344,7 @@
             this.tbSearchNews.Name = "tbSearchNews";
             this.tbSearchNews.Size = new System.Drawing.Size(209, 20);
             this.tbSearchNews.TabIndex = 2;
+            
             // 
             // btnSearchNews
             // 

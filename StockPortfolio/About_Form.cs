@@ -29,25 +29,25 @@ namespace StockPortfolio
             if(num == 0)
             {
                 LB_Name1.Text = "Бодан Мојсиловиќ";
-                LB_Name2.Text = "Христијан Анасастасовски";
+                LB_Name2.Text = "Христијан Анастасовски";
                 LB_Name3.Text = "Давор Баришиќ-Јаман";
             }
             else if(num == 1)
             {
                 LB_Name2.Text = "Бодан Мојсиловиќ";
-                LB_Name1.Text = "Христијан Анасастасовски";
+                LB_Name1.Text = "Христијан Анастасовски";
                 LB_Name3.Text = "Давор Баришиќ-Јаман";
             }
             else if(num == 2)
             {
                 LB_Name3.Text = "Бодан Мојсиловиќ";
-                LB_Name2.Text = "Христијан Анасастасовски";
+                LB_Name2.Text = "Христијан Анастасовски";
                 LB_Name1.Text = "Давор Баришиќ-Јаман";
             }
             else
             {
                 LB_Name1.Text = "Бодан Мојсиловиќ";
-                LB_Name2.Text = "Христијан Анасастасовски";
+                LB_Name2.Text = "Христијан Анастасовски";
                 LB_Name3.Text = "Давор Баришиќ-Јаман";
             }
         }
